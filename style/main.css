@@ -1,0 +1,611 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*http://tb2.bdstatic.com/tb/editor/images/face/i_f09.png*/
+body {
+  background-color: white;
+  font: 14px/1.5 "Arial", "Microsoft YaHei";
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+a:hover, a:active {
+  color: #2B7BB9;
+}
+
+#header {
+  background-color: #FFFBF5;
+  line-height: 50px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  box-shadow: 0 1px 2px rgba(51, 71, 95, 0.5);
+}
+#header .container {
+  min-width: 890px;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.logo {
+  float: left;
+  height: 50px;
+  font-size: 0;
+}
+.logo a {
+  background: url('../imgs/logo1.png?1464496542') no-repeat left;
+  display: inline-block;
+  vertical-align: middle;
+  height: 40px;
+  width: 200px;
+}
+
+.search_box {
+  float: left;
+  line-height: 50px;
+  position: relative;
+}
+.search_box input {
+  width: 245px;
+  height: 21px;
+  padding: 5px 27px 6px 12px;
+  border: 1px solid #e1e8ed;
+  background: #f5f8fa;
+  border-radius: 21px;
+  outline: none;
+}
+.search_box i {
+  width: 26px;
+  height: 32px;
+  background: url('../imgs/icon/search.png?1464524669') no-repeat center;
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.nav {
+  list-style: none;
+  float: right;
+  height: 50px;
+}
+.nav > li {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+}
+.nav > li > a {
+  float: left;
+  height: 50px;
+  padding: 0 10px;
+  font-size: 16px;
+  color: #33475f;
+}
+.nav > li > a:hover, .nav > li > a:active {
+  color: #2B7BB9;
+}
+.nav > li > a i {
+  width: 20px;
+  display: inline-block;
+  text-indent: -999em;
+  margin-right: 4px;
+}
+
+#nav_home i {
+  background: url('../imgs/icon/home.png?1464520495') no-repeat center;
+}
+#nav_home:hover i {
+  background: url('../imgs/icon/home_hover.png?1464520982') no-repeat center;
+}
+
+#nav_comment i {
+  background: url('../imgs/icon/comment.png?1464522679') no-repeat center;
+}
+#nav_comment:hover i {
+  background: url('../imgs/icon/comment_hover.png?1464522758') no-repeat center;
+}
+
+#nav_meg i {
+  background: url('../imgs/icon/meg.png?1464522797') no-repeat center;
+}
+#nav_meg:hover i {
+  background: url('../imgs/icon/meg_hover.png?1464522813') no-repeat center;
+}
+
+#nav_user i {
+  background: url('../imgs/icon/user.png?1464523806') no-repeat center;
+}
+#nav_user:hover i {
+  background: url('../imgs/icon/user_hover.png?1464523833') no-repeat center;
+}
+
+.nav_user_show {
+  width: 100px;
+  position: absolute;
+  background: #FFFBF5;
+  display: none;
+  left: -15px;
+  top: 45px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 2px rgba(102, 117, 127, 0.5);
+  padding: 5px 0;
+  border: 1px solid #D2D2D2;
+}
+.nav_user_show li {
+  display: block;
+}
+.nav_user_show li:not(:last-child) {
+  border-bottom: 1px solid #e1e8ed;
+}
+.nav_user_show li a {
+  display: block;
+  line-height: 20px;
+  padding: 5px 0 5px 10px;
+  color: #33475f;
+}
+.nav_user_show li a:hover {
+  color: white;
+  background: #2B7BB9;
+}
+.nav_user_show:before {
+  content: "";
+  height: 0;
+  border-bottom: 10px solid #FFFBF5;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: absolute;
+  left: 70%;
+  top: -10px;
+  margin-left: -10px;
+  z-index: 10;
+}
+.nav_user_show:after {
+  content: "";
+  height: 0;
+  border-bottom: 12px solid #D2D2D2;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  position: absolute;
+  left: 70%;
+  top: -12px;
+  margin-left: -12px;
+  z-index: 9;
+}
+
+.nav_user_set:hover .nav_user_show {
+  display: block;
+}
+
+.content {
+  margin: 100px;
+}
+
+/*send msg box*/
+.msgBox {
+  width: 600px;
+  font-size: 14px;
+  padding: 10px;
+  box-shadow: 0 0 1px #e1e8ed;
+  background: #E9F1F8;
+  border-radius: 5px;
+}
+.msgBox .msgTxt {
+  font: 14px "Arial", "Microsoft YaHei";
+  height: 90px;
+  padding: 8px 6px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  resize: none;
+  word-wrap: break-word;
+  border: 1px solid rgba(128, 128, 128, 0.5);
+  overflow-y: auto;
+}
+.msgBox .msgTxt:focus {
+  box-shadow: 0 0 5px #2B7BB9;
+}
+.msgBox .msgAdd {
+  float: left;
+}
+.msgBox .msgAdd > li {
+  float: left;
+  color: #33475f;
+  cursor: pointer;
+  margin: 5px;
+  position: relative;
+}
+.msgBox .msgAdd > li:hover {
+  color: #2B7BB9;
+}
+.msgBox .msgAdd > li i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-indent: -999em;
+  margin-right: 5px;
+}
+.msgBox .msgAdd > li input {
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0;
+  width: 100%;
+  height: 100%;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+}
+.msgBox .msgAdd li.msgEmoji {
+  position: relative;
+}
+.msgBox .msgAdd li.msgEmoji i {
+  background: url('../imgs/icon/emoji.png?1465117945') no-repeat center;
+}
+.msgBox .msgAdd li.msgEmoji:hover i {
+  background: url('../imgs/icon/emoji_hover.png?1465117985') no-repeat center;
+}
+.msgBox .msgAdd li.msgEmoji:hover .emojiSet {
+  display: block;
+}
+.msgBox .msgAdd li.msgPhoto i {
+  background: url('../imgs/icon/msgPhoto.png?1465139020') no-repeat center;
+}
+.msgBox .msgAdd li.msgPhoto:hover i {
+  background: url('../imgs/icon/msgPhoto_hover.png?1465139110') no-repeat center;
+}
+.msgBox .msgSend {
+  float: right;
+}
+.msgBox .msgSend input {
+  cursor: pointer;
+  padding: 6px 15px;
+  font-size: 16px;
+  font-family: "Microsoft YaHei UI";
+  background: #0084B4;
+  border: none;
+  color: white;
+  outline: none;
+  letter-spacing: 2px;
+  border-radius: 5px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+}
+.msgBox .msgSend input:hover {
+  background: #2B7BB9;
+}
+.msgBox .msgSend strong {
+  font-size: 20px;
+  color: #33475f;
+  padding-right: 10px;
+}
+.msgBox .msgSend .disabled {
+  cursor: auto;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+  opacity: 0.2;
+}
+.msgBox .msgSend .red {
+  color: red;
+}
+
+.emojiSet {
+  display: none;
+  position: absolute;
+  background: #FFFBF5;
+  left: 0px;
+  top: 30px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(51, 71, 95, 0.5);
+  padding: 5px 5px;
+  border: 1px solid #D2D2D2;
+  padding: 15px 15px;
+  width: 351px;
+}
+.emojiSet:before {
+  content: "";
+  height: 0;
+  border-bottom: 10px solid #FFFBF5;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: absolute;
+  left: 35px;
+  top: -10px;
+  margin-left: -10px;
+  z-index: 10;
+}
+.emojiSet:after {
+  content: "";
+  height: 0;
+  border-bottom: 12px solid #D2D2D2;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  position: absolute;
+  left: 35px;
+  top: -12px;
+  margin-left: -12px;
+  z-index: 9;
+}
+.emojiSet li {
+  width: 30px;
+  height: 30px;
+  float: left;
+  border: 1px solid #E8E8E8;
+  margin: -1px 0 0 -1px;
+  padding: 2px;
+  position: relative;
+}
+.emojiSet li:hover {
+  border-color: #367fa9;
+  z-index: 2;
+}
+.emojiSet li a {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+.emojiSet li:nth-child(1) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 0px;
+}
+.emojiSet li:nth-child(2) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -30px;
+}
+.emojiSet li:nth-child(3) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -60px;
+}
+.emojiSet li:nth-child(4) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -90px;
+}
+.emojiSet li:nth-child(5) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -120px;
+}
+.emojiSet li:nth-child(6) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -150px;
+}
+.emojiSet li:nth-child(7) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -180px;
+}
+.emojiSet li:nth-child(8) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -210px;
+}
+.emojiSet li:nth-child(9) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -240px;
+}
+.emojiSet li:nth-child(10) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -270px;
+}
+.emojiSet li:nth-child(11) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -300px;
+}
+.emojiSet li:nth-child(12) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -330px;
+}
+.emojiSet li:nth-child(13) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -360px;
+}
+.emojiSet li:nth-child(14) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -390px;
+}
+.emojiSet li:nth-child(15) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -420px;
+}
+.emojiSet li:nth-child(16) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -450px;
+}
+.emojiSet li:nth-child(17) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -480px;
+}
+.emojiSet li:nth-child(18) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -510px;
+}
+.emojiSet li:nth-child(19) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -540px;
+}
+.emojiSet li:nth-child(20) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -570px;
+}
+.emojiSet li:nth-child(21) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -600px;
+}
+.emojiSet li:nth-child(22) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -630px;
+}
+.emojiSet li:nth-child(23) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -660px;
+}
+.emojiSet li:nth-child(24) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -690px;
+}
+.emojiSet li:nth-child(25) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -720px;
+}
+.emojiSet li:nth-child(26) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -750px;
+}
+.emojiSet li:nth-child(27) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -780px;
+}
+.emojiSet li:nth-child(28) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -810px;
+}
+.emojiSet li:nth-child(29) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -840px;
+}
+.emojiSet li:nth-child(30) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -870px;
+}
+.emojiSet li:nth-child(31) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -900px;
+}
+.emojiSet li:nth-child(32) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -930px;
+}
+.emojiSet li:nth-child(33) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -960px;
+}
+.emojiSet li:nth-child(34) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -990px;
+}
+.emojiSet li:nth-child(35) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1020px;
+}
+.emojiSet li:nth-child(36) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1050px;
+}
+.emojiSet li:nth-child(37) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1080px;
+}
+.emojiSet li:nth-child(38) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1110px;
+}
+.emojiSet li:nth-child(39) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1140px;
+}
+.emojiSet li:nth-child(40) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1170px;
+}
+.emojiSet li:nth-child(41) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1200px;
+}
+.emojiSet li:nth-child(42) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1230px;
+}
+.emojiSet li:nth-child(43) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1260px;
+}
+.emojiSet li:nth-child(44) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1290px;
+}
+.emojiSet li:nth-child(45) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1320px;
+}
+.emojiSet li:nth-child(46) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1350px;
+}
+.emojiSet li:nth-child(47) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1380px;
+}
+.emojiSet li:nth-child(48) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1410px;
+}
+.emojiSet li:nth-child(49) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1440px;
+}
+.emojiSet li:nth-child(50) a {
+  background: url('../imgs/icon/fFace.png?1465115312') no-repeat 0 -1470px;
+}
+
+.msgPhotoShow {
+  height: 0;
+  overflow: hidden;
+  transition: height 300ms ease-in-out 300ms;
+}
+.msgPhotoShow div {
+  width: 104px;
+  height: 104px;
+  margin: 8px;
+  float: left;
+  line-height: 100px;
+  font-size: 0;
+  text-align: center;
+  background: #ccd6dd;
+  position: relative;
+}
+.msgPhotoShow div img {
+  vertical-align: middle;
+}
+.msgPhotoShow div span {
+  display: none;
+  position: absolute;
+  cursor: pointer;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  background: url('../imgs/icon/delete.png?1465144093') no-repeat center;
+}
+.msgPhotoShow div span:hover {
+  background: url('../imgs/icon/delete_hover.png?1465144075') no-repeat center;
+}
+.msgPhotoShow div:hover span {
+  display: block;
+}
+
+/*msg show*/
+.msgListContentBox {
+  border: 1px solid #e1e8ed;
+  padding: 8px 10px;
+}
+.msgListContentBox .msgListContent {
+  margin-left: 60px;
+}
+.msgListContentBox .msgListContent .msgListUserHead {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  float: left;
+  margin-left: -60px;
+}

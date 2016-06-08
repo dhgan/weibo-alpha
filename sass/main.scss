@@ -1,0 +1,446 @@
+
+$legacy-support-for-ie6: false;
+$legacy-support-for-ie7: false;
+$legacy-support-for-ie8: false;
+
+@import "compass";
+@import "compass/reset";
+@import "compass/utilities";
+//@import "fontface";
+
+.clearfix{
+  @include pie-clearfix;
+}
+/*http://tb2.bdstatic.com/tb/editor/images/face/i_f09.png*/
+$color1: #F2EEE8;
+$color2: #FFFBF5;
+$a_color: #1b95e0;
+$a_hover_color: #2B7BB9;
+$nav_a: #33475f;
+$border_color: #e1e8ed;
+$bg_color: #367fa9;
+$D2: #D2D2D2;
+$E8: #E8E8E8;
+
+$font-family: 'Arial','Microsoft YaHei';
+
+body {
+  background-color: white;
+  font: 14px/1.5 $font-family;
+}
+a{
+  text-decoration: none;
+  color: black;
+  &:hover, &:active {
+    color: $a_hover_color;
+  }
+}
+#header{
+  background-color: $color2;
+  line-height: 50px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  box-shadow: 0 1px 2px rgba($nav_a,0.5);
+  .container{
+    min-width: 890px;
+    width: 1000px;
+    margin: 0 auto;
+  }
+}
+.logo {
+  float: left;
+  height: 50px;
+  font-size: 0;
+  a{
+    background: image-url("logo1.png") no-repeat left;
+    display: inline-block;
+    vertical-align: middle;
+    height: 40px;
+    width: 200px;
+  }
+}
+
+.search_box{
+  float: left;
+  line-height: 50px;
+  position: relative;
+  input{
+    width: 245px;
+    height: 21px;
+    padding: 5px 27px 6px 12px;
+    border: 1px solid $border_color;
+    background: #f5f8fa;
+    border-radius: 21px;
+    outline: none;
+  }
+  i{
+    width: 26px;
+    height: 32px;
+    background: image-url("icon/search.png") no-repeat center;
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    cursor: pointer;
+  }
+}
+
+.nav{
+  list-style: none;
+  float: right;
+  height: 50px;
+  //overflow: hidden;
+  &>li{
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    &>a{
+      float: left;
+      height: 50px;
+      padding: 0 10px;
+      font-size: 16px;
+      color: $nav_a;
+      &:hover,&:active{
+        color: $a_hover_color;
+      }
+      i{
+        width: 20px;
+        display: inline-block;
+        text-indent: -999em;
+        margin-right: 4px;
+      }
+    }
+  }
+}
+#nav_home{
+  i{
+    background: image-url("icon/home.png") no-repeat center;
+  }
+  &:hover{
+    i{
+      background: image-url("icon/home_hover.png") no-repeat center;
+    }
+  }
+}
+#nav_comment{
+  i{
+    background: image-url("icon/comment.png") no-repeat center;
+  }
+  &:hover{
+    i{
+      background: image-url("icon/comment_hover.png") no-repeat center;
+    }
+  }
+}
+#nav_meg{
+  i{
+    background: image-url("icon/meg.png") no-repeat center;
+  }
+  &:hover{
+    i{
+      background: image-url("icon/meg_hover.png") no-repeat center;
+    }
+  }
+}
+#nav_user{
+  i{
+    background: image-url("icon/user.png") no-repeat center;
+  }
+  &:hover{
+    i{
+      background: image-url("icon/user_hover.png") no-repeat center;
+    }
+  }
+}
+
+.nav_user_show{
+  width: 100px;
+  position: absolute;
+  background: $color2;
+  display: none;
+  left: -15px;
+  top: 45px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 2px rgba(#66757f,0.5);
+  padding: 5px 0;
+  border: 1px solid $D2;
+  li{
+    display: block;
+    &:not(:last-child){
+      border-bottom: 1px solid $border_color;
+    }
+    a{
+      display: block;
+      line-height: 20px;
+      padding: 5px 0 5px 10px;
+      color: $nav_a;
+      &:hover{
+        color: white;
+        background: $a_hover_color;
+      }
+    }
+  }
+  &:before{
+    content: "";
+    height: 0;
+    border-bottom: 10px solid $color2;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    left: 70%;
+    top: -10px;
+    margin-left: -10px;
+    z-index: 10;
+  }
+  &:after{
+    content: "";
+    height: 0;
+    border-bottom: 12px solid $D2;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    position: absolute;
+    left: 70%;
+    top: -12px;
+    margin-left: -12px;
+    z-index: 9;
+  }
+}
+.nav_user_set:hover{
+  .nav_user_show{
+    display: block;
+  }
+}
+.content{
+  margin: 100px;
+}
+
+
+/*send msg box*/
+.msgBox{
+  width: 600px;
+  font-size: 14px;
+  padding: 10px;
+  box-shadow: 0 0 1px $border_color;
+  background: #E9F1F8;
+  border-radius: 5px;
+  .msgTxt{
+    font: 14px $font-family;
+    height: 90px;
+    padding: 8px 6px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    resize: none;
+    word-wrap: break-word;
+    border: 1px solid rgba(gray,0.5);
+    overflow-y: auto;
+    &:focus{
+      box-shadow: 0 0 5px $a_hover_color;
+    }
+  }
+  .msgAdd{
+    float: left;
+    &>li{
+      float: left;
+      color: $nav_a;
+      cursor: pointer;
+      margin: 5px;
+      position: relative;
+      &:hover{
+        color: $a_hover_color;
+      }
+      i{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        text-indent: -999em;
+        margin-right: 5px;
+      }
+      input{
+        cursor: pointer;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 0;
+        width: 100%;
+        height: 100%;
+        @include opacity(0);
+      }
+    }
+    li.msgEmoji{
+      position: relative;
+      i{
+        background: image_url("icon/emoji.png") no-repeat center;
+      }
+      &:hover{
+        i{
+          background: image_url("icon/emoji_hover.png") no-repeat center;
+        }
+        .emojiSet{
+          display: block;
+        }
+      }
+    }
+    li.msgPhoto{
+      i{
+        background: image_url("icon/msgPhoto.png") no-repeat center;
+      }
+      &:hover{
+        i {
+          background: image_url("icon/msgPhoto_hover.png") no-repeat center;
+        }
+      }
+    }
+  }
+  .msgSend{
+    float: right;
+    input{
+      cursor: pointer;
+      padding: 6px 15px;
+      font-size: 16px;
+      font-family: "Microsoft YaHei UI";
+      background: #0084B4;
+      border: none;
+      color: white;
+      outline: none;
+      letter-spacing: 2px;
+      border-radius: 5px;
+      @include opacity(1);
+      &:hover{
+        background: $a_hover_color;
+      }
+    }
+    strong{
+      font-size: 20px;
+      color: $nav_a;
+      padding-right: 10px;
+    }
+    .disabled{
+      cursor: auto;
+      @include opacity(0.2);
+    }
+    .red{
+      color: red;
+    }
+  }
+}
+.emojiSet{
+  display: none;
+  position: absolute;
+  background: $color2;
+  left: 0px;
+  top: 30px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba($nav_a,0.5);
+  padding: 5px 5px;
+  border: 1px solid $D2;
+  padding: 15px 15px;
+  width: 351px;
+  &:before{
+    content: "";
+    height: 0;
+    border-bottom: 10px solid $color2;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    left: 35px;
+    top: -10px;
+    margin-left: -10px;
+    z-index: 10;
+  }
+  &:after{
+    content: "";
+    height: 0;
+    border-bottom: 12px solid $D2;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    position: absolute;
+    left: 35px;
+    top: -12px;
+    margin-left: -12px;
+    z-index: 9;
+  }
+  li{
+    width: 30px;
+    height: 30px;
+    float: left;
+    border: 1px solid $E8;
+    margin: -1px 0 0 -1px;
+    padding: 2px;
+    position: relative;
+    &:hover{
+      border-color: $bg_color;
+      z-index: 2;
+    }
+    a{
+      display: block;
+      width: 30px;
+      height: 30px;
+    }
+  }
+  @for $i from 1 through 50{
+    li:nth-child(#{$i}){
+      a{
+        background: image_url("icon/fFace.png") no-repeat 0 0-$i*30px+30px;
+      }
+    }
+  }
+}
+.msgPhotoShow{
+  height: 0;
+  overflow: hidden;
+  transition: height 300ms ease-in-out 300ms;
+  div{
+    width: 104px;
+    height: 104px;
+    margin: 8px;
+    float: left;
+    line-height: 100px;
+    font-size: 0;
+    text-align: center;
+    background: #ccd6dd;
+    position: relative;
+    img{
+      vertical-align: middle;
+    }
+    span{
+      display: none;
+      position: absolute;
+      cursor: pointer;
+      top: 2px;
+      right: 2px;
+      width: 20px;
+      height: 20px;
+      background: image_url("icon/delete.png") no-repeat center;
+      &:hover{
+        background: image_url("icon/delete_hover.png") no-repeat center;
+      }
+    }
+    &:hover{
+      span{
+        display: block;
+      }
+    }
+  }
+}
+
+
+/*msg show*/
+.msgListContentBox{
+  border: 1px solid #e1e8ed;
+  padding: 8px 10px;
+  .msgListContent{
+    margin-left: 60px;
+    .msgListUserHead{
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      float: left;
+      margin-left: -60px;
+    }
+  }
+}
+.msgListContent{
+
+}
