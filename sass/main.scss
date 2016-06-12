@@ -25,15 +25,19 @@ $E8: #E8E8E8;
 $font-family: 'Arial','Microsoft YaHei';
 
 body {
-  background-color: white;
+  background: image-url("bg.png");
   font: 14px/1.5 $font-family;
 }
 a{
   text-decoration: none;
-  color: black;
+  color: $a_color;
   &:hover, &:active {
     color: $a_hover_color;
   }
+}
+textarea{
+  word-break: keep-all;
+  word-wrap: break-word;
 }
 #header{
   background-color: $color2;
@@ -43,6 +47,7 @@ a{
   top: 0;
   left: 0;
   box-shadow: 0 1px 2px rgba($nav_a,0.5);
+  z-index: 999;
   .container{
     min-width: 890px;
     width: 1000px;
@@ -61,110 +66,43 @@ a{
     width: 200px;
   }
 }
-
-.search_box{
-  float: left;
-  line-height: 50px;
-  position: relative;
-  input{
-    width: 245px;
-    height: 21px;
-    padding: 5px 27px 6px 12px;
-    border: 1px solid $border_color;
-    background: #f5f8fa;
-    border-radius: 21px;
-    outline: none;
-  }
-  i{
-    width: 26px;
-    height: 32px;
-    background: image-url("icon/search.png") no-repeat center;
-    position: absolute;
-    top: 9px;
-    right: 10px;
-    cursor: pointer;
-  }
-}
-
-.nav{
-  list-style: none;
+.nav_userHead{
   float: right;
   height: 50px;
-  //overflow: hidden;
-  &>li{
+  vertical-align: middle;
+  font-size: 0;
+  position: relative;
+  &>a{
     display: inline-block;
-    position: relative;
-    vertical-align: top;
-    &>a{
-      float: left;
-      height: 50px;
-      padding: 0 10px;
-      font-size: 16px;
-      color: $nav_a;
-      &:hover,&:active{
-        color: $a_hover_color;
-      }
-      i{
-        width: 20px;
-        display: inline-block;
-        text-indent: -999em;
-        margin-right: 4px;
-      }
-    }
+    width: 36px;
+    height: 36px;
+    vertical-align: middle;
+    border-radius: 5px;
+    overflow: hidden;
   }
-}
-#nav_home{
-  i{
-    background: image-url("icon/home.png") no-repeat center;
+  img{
+    width: 36px;
+    height: 36px;
   }
   &:hover{
-    i{
-      background: image-url("icon/home_hover.png") no-repeat center;
-    }
-  }
-}
-#nav_comment{
-  i{
-    background: image-url("icon/comment.png") no-repeat center;
-  }
-  &:hover{
-    i{
-      background: image-url("icon/comment_hover.png") no-repeat center;
-    }
-  }
-}
-#nav_meg{
-  i{
-    background: image-url("icon/meg.png") no-repeat center;
-  }
-  &:hover{
-    i{
-      background: image-url("icon/meg_hover.png") no-repeat center;
-    }
-  }
-}
-#nav_user{
-  i{
-    background: image-url("icon/user.png") no-repeat center;
-  }
-  &:hover{
-    i{
-      background: image-url("icon/user_hover.png") no-repeat center;
+    .nav_set{
+      display: block;
     }
   }
 }
 
-.nav_user_show{
-  width: 100px;
+.nav_set{
+  width: 80px;
   position: absolute;
   background: $color2;
   display: none;
-  left: -15px;
-  top: 45px;
+  left: -40px;
+  top: 55px;
   border-radius: 5px;
   box-shadow: 1px 2px 2px rgba(#66757f,0.5);
   padding: 5px 0;
   border: 1px solid $D2;
+  font-size: 14px;
   li{
     display: block;
     &:not(:last-child){
@@ -206,35 +144,85 @@ a{
     z-index: 9;
   }
 }
-.nav_user_set:hover{
-  .nav_user_show{
-    display: block;
+
+#gdh-pop{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+}
+.shadowBox{
+  height: 100%;
+  width: 100%;
+  background: #000;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  position: absolute;
+}
+.popMsgBox{
+  margin: 120px auto;
+  width: 600px;
+  .msgHead{
+    height: 40px;
+    line-height: 40px;
+    background: $color2;
+    position: relative;
+    @include border-top-radius(10px);
+    h3{
+      text-align: center;
+      font-size: 16px;
+      font-family: "Microsoft YaHei UI",sans-serif;
+      color: $nav_a;
+      cursor: move;
+    }
+    i{
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: image-url("./icon/delete.png");
+      right: 10px;
+      top: 5px;
+      cursor: pointer;
+      &:hover{
+        background: image-url("./icon/delete_hover.png");
+      }
+    }
+  }
+  .msgBox{
+    @include border-top-radius(0);
+    @include border-bottom-radius(10px);
   }
 }
+
+
 .content{
-  margin: 100px;
+  margin: 100px 25%;
 }
 
 
 /*send msg box*/
-.msgBox{
+.msgBox,.commentBox{
   width: 600px;
   font-size: 14px;
   padding: 10px;
+  box-sizing: border-box;
   box-shadow: 0 0 1px $border_color;
-  background: #E9F1F8;
+  background: #fff;
   border-radius: 5px;
+  position: relative;
   .msgTxt{
     font: 14px $font-family;
-    height: 90px;
-    padding: 8px 6px;
-    margin-bottom: 10px;
+    line-height: 20px;
+    min-height: 90px;
+    padding: 8px 6px 0 6px;
     box-sizing: border-box;
+    margin-bottom: 10px;
     width: 100%;
     resize: none;
-    word-wrap: break-word;
     border: 1px solid rgba(gray,0.5);
-    overflow-y: auto;
+    overflow: hidden;
     &:focus{
       box-shadow: 0 0 5px $a_hover_color;
     }
@@ -245,8 +233,8 @@ a{
       float: left;
       color: $nav_a;
       cursor: pointer;
-      margin: 5px;
       position: relative;
+      padding: 0 5px 10px;
       &:hover{
         color: $a_hover_color;
       }
@@ -265,7 +253,8 @@ a{
         font-size: 0;
         width: 100%;
         height: 100%;
-        @include opacity(0);
+        opacity: 0;
+        filter: alpha(opacity=0);
       }
     }
     li.msgEmoji{
@@ -299,14 +288,15 @@ a{
       cursor: pointer;
       padding: 6px 15px;
       font-size: 16px;
-      font-family: "Microsoft YaHei UI";
+      font-family: "Microsoft YaHei UI",sans-serif;
       background: #0084B4;
       border: none;
       color: white;
       outline: none;
       letter-spacing: 2px;
       border-radius: 5px;
-      @include opacity(1);
+      opacity: 1;
+      filter: alpha(opacity=100);
       &:hover{
         background: $a_hover_color;
       }
@@ -318,7 +308,8 @@ a{
     }
     .disabled{
       cursor: auto;
-      @include opacity(0.2);
+      opacity: 0.2;
+      filter: alpha(opacity=20);
     }
     .red{
       color: red;
@@ -328,12 +319,12 @@ a{
 .emojiSet{
   display: none;
   position: absolute;
+  z-index: 9;
   background: $color2;
   left: 0px;
-  top: 30px;
+  top: 26px;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba($nav_a,0.5);
-  padding: 5px 5px;
   border: 1px solid $D2;
   padding: 15px 15px;
   width: 351px;
@@ -344,7 +335,7 @@ a{
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     position: absolute;
-    left: 35px;
+    left: 26px;
     top: -10px;
     margin-left: -10px;
     z-index: 10;
@@ -356,7 +347,7 @@ a{
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
     position: absolute;
-    left: 35px;
+    left: 26px;
     top: -12px;
     margin-left: -12px;
     z-index: 9;
@@ -392,15 +383,16 @@ a{
   overflow: hidden;
   transition: height 300ms ease-in-out 300ms;
   div{
-    width: 104px;
-    height: 104px;
-    margin: 8px;
+    width: 108px;
+    height: 108px;
+    margin: 4px;
     float: left;
     line-height: 100px;
     font-size: 0;
     text-align: center;
     background: #ccd6dd;
     position: relative;
+    overflow: hidden;
     img{
       vertical-align: middle;
     }
@@ -426,12 +418,35 @@ a{
 }
 
 
-/*msg show*/
+/*msg list*/
 .msgListContentBox{
   border: 1px solid #e1e8ed;
-  padding: 8px 10px;
+  padding: 20px 15px 0px 75px;
+  width: 600px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  position: relative;
+  background: #fff;
+  .msgDel{
+    display: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: image_url("icon/msgDel.png") no-repeat center;
+    &:hover{
+      background: image_url("icon/msgDel_hover.png") no-repeat center;
+    }
+  }
+  &:hover{
+    .msgDel{
+      display: block;
+    }
+  }
   .msgListContent{
-    margin-left: 60px;
+    padding: 4px;
     .msgListUserHead{
       width: 50px;
       height: 50px;
@@ -439,8 +454,221 @@ a{
       float: left;
       margin-left: -60px;
     }
+    .msgListUserName{
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .msgListTime{
+      color: $nav_a;
+      &:hover{
+        color: $a_hover_color;
+      }
+    }
+    .msgListBody{
+      margin: 5px 0;
+      img{
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+      }
+    }
+    .msgReply{
+      background: darken(#F7F7F7, 3%);
+      padding: 5px 10px;
+      color: #999;
+      margin: 0 -4px;
+      a{
+        color: $nav_a;
+        &:hover{
+          color: $a_hover_color;
+        }
+      }
+    }
+    .li_1_w{
+      width: 332px;
+    }
+    .li_1_h{
+      height: 332px;
+    }
+    [class^="li_2"],.li_5_1,.li_5_2{
+      width: 248px;
+      height: 248px;
+      line-height: 248px;
+    }
+    [class^="li_4"],[class^="li_7"],[class^="li_8"]{
+      width: 123px;
+      height: 123px;
+      line-height: 123px;
+    }
+    [class^="li_3"],.li_5_4,.li_5_5,[class^="li_6"],.li_7_2,.li_7_3,[class^="li_9"]{
+      width: 165px;
+      height: 165px;
+      line-height: 165px;
+    }
+    .li_3_1,.li_5_3,.li_6_4,.li_9_1,.li_9_4,.li_9_7{
+      width: 164px;
+      line-height: 164px;
+    }
+    .li_4_1,.li_8_1{
+      width: 373px;
+      height: 373px;
+      line-height: 373px;
+    }
+    .li_6_1,.li_7_1{
+      width: 331px;
+      height: 331px;
+      line-height: 331px;
+    }
+    [class^="li_"]{
+      float: left;
+      font-size: 0;
+      margin: 2px 0 0 2px;
+      overflow: hidden;
+      background-color: lighten(#ccd6dd,10%);
+      cursor: image_url("icon/big.cur"), auto;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .big_photo_show{
+      text-align: center;
+      cursor: image-url("icon/small.cur"), auto;
+      background: #f2f2f5;
+      font-size: 0;
+      margin: 10px 0;
+    }
+    .msgListPhotoShow{
+      margin: 0 -2px;
+    }
+    .li_small{
+      width: 52px;
+      height: 52px;
+      margin: 0;
+      border: 2px solid transparent;
+      cursor: pointer;
+      line-height: 52px;
+      font-size: 0;
+      vertical-align: middle;
+      img{
+        vertical-align: middle;
+      }
+      &:hover,&.selected{
+        border-color: $a_color;
+      }
+    }
   }
 }
 .msgListContent{
-
+  li{
+    float: right;
+    cursor: pointer;
+    margin: 5px 0 0 10px;
+    color: $nav_a;
+    line-height: 20px;
+    i{
+      display: inline-block;
+      text-indent: -999em;
+      width: 20px;
+      height: 20px;
+    }
+    &:hover{
+      color: $a_hover_color;
+    }
+  }
+  .msgLike{
+    i{
+      background: image_url("icon/like.png") no-repeat center;
+    }
+    &:hover{
+      color: red;
+      i{
+        background: image_url("icon/like_hover.png") no-repeat center;
+      }
+    }
+  }
+  .msgComment{
+    position: relative;
+    i{
+      background: image_url("icon/comment.png") no-repeat center;
+    }
+    &:hover{
+      i{
+        background: image_url("icon/comment_hover.png") no-repeat center;
+      }
+    }
+    b{
+      display: none;
+      position: absolute;
+      border-bottom: 10px solid darken(#F7F7F7, 5%);
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      bottom: -6px;
+      left: 25%;
+    }
+  }
+}
+.commentTotal{
+  margin-left:-60px;
+  &>.commentBox{
+    padding-left: 65px;
+    padding-top: 10px;
+    img{
+      width: 32px;
+      float: left;
+      margin-left: -50px;
+      border-radius: 5px;
+    }
+  }
+}
+.commentBox{
+  width: 100%;
+  background: darken(#F7F7F7, 3%);
+  border-radius: 0;
+  padding: 5px;
+  .msgTxt{
+    padding: 5px 5px 0 5px;
+    height: 30px;
+    min-height: 30px;
+    margin-bottom: 0;
+  }
+  .msgAdd{
+    li.msgEmoji{
+      margin: 5px 0 0 5px;
+    }
+  }
+  .msgSend{
+    input{
+      padding: 3px 10px;
+    }
+    strong{
+      font-size:14px;
+    }
+  }
+}
+.commentList{
+  background-color: darken(#F7F7F7, 3%);
+  margin-bottom: 10px;
+  padding:0 0 20px 60px;
+  font-size: 13px;
+  &>li{
+    padding: 5px 10px;
+    margin-top: -1px;
+    border-top: 1px solid darken(#F7F7F7, 15%);
+    border-bottom: 1px solid darken(#F7F7F7, 15%);
+  }
+  .commentMsg,.commentFooter{
+    margin-left: 30px;
+    img{
+      width: 32px;
+      float: left;
+      margin-left: -40px;
+      border-radius: 5px;
+    }
+  }
+  .commentFooter{
+    color: #999;
+    a{
+      float: right;
+      margin-right: 10px;
+    }
+  }
 }
