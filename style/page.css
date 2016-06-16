@@ -63,11 +63,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   clear: both;
 }
 
-/*http://tb2.bdstatic.com/tb/editor/images/face/i_f09.png*/
 body {
   background: url('../imgs/bg.png?1465733283');
   font: 14px/1.5 "Arial", "Microsoft YaHei";
-  min-width: 860px;
+  min-width: 600px;
   min-height: 120%;
   overflow-y: scroll;
 }
@@ -110,22 +109,27 @@ textarea {
 }
 #header .container {
   max-width: 1180px;
-  min-width: 860px;
+  min-width: 600px;
   margin: 0 auto;
 }
-@media only screen and (max-width: 1190px) {
+@media only screen and (max-width: 1280px) {
   #header .container {
-    width: 1120px;
+    width: 1020px;
   }
 }
-@media only screen and (max-width: 1120px) {
+@media only screen and (max-width: 1019px) {
   #header .container {
     width: 900px;
   }
 }
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 950px) {
   #header .container {
-    width: 860px;
+    width: 870px;
+  }
+}
+@media only screen and (max-width: 869px) {
+  #header .container {
+    width: 90%;
   }
 }
 #header .container .weibo, #header .container .article {
@@ -411,58 +415,18 @@ textarea {
 }
 
 .main {
-  width: 1120px;
+  width: 870px;
   margin: 70px auto;
 }
 @media only screen and (max-width: 1120px) {
   .main {
-    width: 860px;
+    width: 870px;
   }
 }
-
-.leftCol {
-  width: 240px;
-  margin-right: 10px;
-  float: left;
-}
-.leftCol .userInfo {
-  background: #6e9cc5;
-  padding: 100px 10px 10px;
-  border-radius: 6px;
-}
-.leftCol .userInfo .userHead {
-  margin: 20px auto;
-  position: relative;
-  text-align: center;
-}
-.leftCol .userInfo .userHead a {
-  font-size: 16px;
-  font-family: "Microsoft YaHei UI", sans-serif;
-  color: white;
-}
-.leftCol .userInfo .userHead img {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  margin-left: -40px;
-}
-.leftCol .userInfo .addFriend {
-  text-align: center;
-}
-.leftCol .userInfo .addFriend a {
-  color: white;
-  background: #5280a9;
-  width: 121px;
-  height: 41px;
-  line-height: 41px;
-  border-radius: 20px;
-  display: inline-block;
-}
-.leftCol .userInfo .addFriend a:hover {
-  background: #456b8e;
+@media only screen and (max-width: 869px) {
+  .main {
+    width: 600px;
+  }
 }
 
 .rightCol {
@@ -480,7 +444,7 @@ textarea {
   color: #33475f;
   margin-bottom: 10px;
 }
-@media only screen and (max-width: 1120px) {
+@media only screen and (max-width: 869px) {
   .rightCol {
     display: none;
   }
@@ -548,8 +512,8 @@ textarea {
   margin-bottom: 10px;
   width: 100%;
   resize: none;
-  overflow: hidden;
   border: 1px solid rgba(128, 128, 128, 0.5);
+  overflow: hidden;
 }
 .msgBox .msgTxt:focus, .commentBox .msgTxt:focus {
   box-shadow: 0 0 5px #80A8CC;
@@ -898,7 +862,7 @@ textarea {
   border: 1px solid #d1dce3;
   padding: 20px 15px 0px 75px;
   width: 600px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   box-sizing: border-box;
   position: relative;
   background: #fff;

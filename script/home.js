@@ -233,7 +233,6 @@
         $other.val(this.value);
         $(this).innerHeight($other[0].scrollHeight);
     }
-    $(".msgBox").eq(0).msgBoxEvent();
     $.fn.centerImg=function () {
         if(!this[0]) return;
         var imgW=this[0].naturalWidth;
@@ -762,29 +761,14 @@
         $(document).on("mouseup", mouseup);
     }
     $(window).on("scroll resize", function () {
-        var $rightCol=$("#rightCol");
-        if(!$rightCol.is(":hidden")){
+        var $leftCol=$("#leftCol");
+        if(!!$leftCol){
             var $main=$("#main");
-            $rightCol.css({
+            $leftCol.css({
                 "position": "fixed",
                 "top": 70,
-                "left": $main.offset().left+$main.innerWidth()-$rightCol.outerWidth()-10
+                "left": $main.offset().left
             });
         }
     });
-    function createHotMsg() {
-        var info={
-            "userId": "111",
-            "userHead": "./imgs/head/boy.png",
-            "msg": "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以"
-        }
-        var $hostMsg=$("<li>" +
-            "<a href='"+info.userId+"'>" +
-            "<img src='"+info.userHead+"'>" + info.msg +
-            "</li>");
-        return $hostMsg;
-    }
-    for(var i=0;i<8;i++){
-        createHotMsg().appendTo($("#rightCol").find(".msgHot").eq(0));
-    }
 })();

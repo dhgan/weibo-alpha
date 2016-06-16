@@ -6,12 +6,10 @@ $legacy-support-for-ie8: false;
 @import "compass";
 @import "compass/reset";
 @import "compass/utilities";
-//@import "fontface";
 
 .clearfix{
   @include pie-clearfix;
 }
-/*http://tb2.bdstatic.com/tb/editor/images/face/i_f09.png*/
 $color1: #F2EEE8;
 $color2: #FFFBF5;
 $a_color: #1b95e0;
@@ -67,14 +65,14 @@ textarea{
     max-width: 1180px;
     min-width: 860px;
     margin: 0 auto;
-    @media only screen and(max-width: 1190px) {
+    @media only screen and(max-width: 1200px) {
       width: 1120px;
     }
-    @media only screen and(max-width: 1120px) {
-      width: 900px;
+    @media only screen and(max-width: 1119px) {
+      width: 980px;
     }
-    @media only screen and(max-width: 920px) {
-      width: 860px;
+    @media only screen and(max-width: 990px) {
+      width: 95%;
     }
     .weibo,.article{
       float: right;
@@ -346,15 +344,13 @@ textarea{
 
 
 .main{
-  width: 1120px;
-  margin: 70px auto;
-  @media only screen and(max-width: 1120px){
-    width: 860px;
-  }
+  width: 860px;
+  margin-top: 70px;
+  margin-left: calc(35% - 301px);
 }
 .leftCol{
   width: 240px;
-  margin-right: 10px;
+  margin-right: 20px;
   float: left;
   .userInfo{
     background: darken($info_bg, 5%);
@@ -458,7 +454,7 @@ textarea{
   }
 }
 .contentBox{
-  float: left;
+  margin-left: 260px;
 }
 
 /*send msg box*/
@@ -480,8 +476,8 @@ textarea{
     margin-bottom: 10px;
     width: 100%;
     resize: none;
-    overflow: hidden;
     border: 1px solid rgba(gray,0.5);
+    overflow: hidden;
     &:focus{
       box-shadow: 0 0 5px $info_bg;
     }
@@ -699,7 +695,7 @@ textarea{
   border: 1px solid darken($border_color, 5%);
   padding: 20px 15px 0px 75px;
   width: 600px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   box-sizing: border-box;
   position: relative;
   background: #fff;
@@ -775,8 +771,8 @@ textarea{
       }
     }
     .msgListBodyDemo{
-      margin-top: 10px;
       h2{
+        margin-top: 10px;
         font-size: 18px;
         text-align: center;
         color: $nav_a;

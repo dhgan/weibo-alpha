@@ -63,7 +63,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   clear: both;
 }
 
-/*http://tb2.bdstatic.com/tb/editor/images/face/i_f09.png*/
 body {
   background: url('../imgs/bg.png?1465733283');
   font: 14px/1.5 "Arial", "Microsoft YaHei";
@@ -113,19 +112,19 @@ textarea {
   min-width: 860px;
   margin: 0 auto;
 }
-@media only screen and (max-width: 1190px) {
+@media only screen and (max-width: 1200px) {
   #header .container {
     width: 1120px;
   }
 }
-@media only screen and (max-width: 1120px) {
+@media only screen and (max-width: 1119px) {
   #header .container {
-    width: 900px;
+    width: 980px;
   }
 }
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 990px) {
   #header .container {
-    width: 860px;
+    width: 95%;
   }
 }
 #header .container .weibo, #header .container .article {
@@ -411,18 +410,14 @@ textarea {
 }
 
 .main {
-  width: 1120px;
-  margin: 70px auto;
-}
-@media only screen and (max-width: 1120px) {
-  .main {
-    width: 860px;
-  }
+  width: 860px;
+  margin-top: 70px;
+  margin-left: calc(35% - 301px);
 }
 
 .leftCol {
   width: 240px;
-  margin-right: 10px;
+  margin-right: 20px;
   float: left;
 }
 .leftCol .userInfo {
@@ -525,7 +520,7 @@ textarea {
 }
 
 .contentBox {
-  float: left;
+  margin-left: 260px;
 }
 
 /*send msg box*/
@@ -548,8 +543,8 @@ textarea {
   margin-bottom: 10px;
   width: 100%;
   resize: none;
-  overflow: hidden;
   border: 1px solid rgba(128, 128, 128, 0.5);
+  overflow: hidden;
 }
 .msgBox .msgTxt:focus, .commentBox .msgTxt:focus {
   box-shadow: 0 0 5px #80A8CC;
@@ -898,7 +893,7 @@ textarea {
   border: 1px solid #d1dce3;
   padding: 20px 15px 0px 75px;
   width: 600px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   box-sizing: border-box;
   position: relative;
   background: #fff;
@@ -973,10 +968,8 @@ textarea {
   color: #fff;
   border-radius: 5px;
 }
-.msgListContentBox .msgListContent .msgListBodyDemo {
-  margin-top: 10px;
-}
 .msgListContentBox .msgListContent .msgListBodyDemo h2 {
+  margin-top: 10px;
   font-size: 18px;
   text-align: center;
   color: #33475f;
