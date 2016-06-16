@@ -6,12 +6,10 @@ $legacy-support-for-ie8: false;
 @import "compass";
 @import "compass/reset";
 @import "compass/utilities";
-//@import "fontface";
 
 .clearfix{
   @include pie-clearfix;
 }
-/*http://tb2.bdstatic.com/tb/editor/images/face/i_f09.png*/
 $color1: #F2EEE8;
 $color2: #FFFBF5;
 $a_color: #1b95e0;
@@ -28,7 +26,7 @@ $font-family: 'Arial','Microsoft YaHei';
 body {
   background: image-url("bg.png");
   font: 14px/1.5 $font-family;
-  min-width: 820px;
+  min-width: 600px;
   min-height: 120%;
   overflow-y: scroll;
 }
@@ -65,16 +63,19 @@ textarea{
   z-index: 999;
   .container{
     max-width: 1180px;
-    min-width: 820px;
+    min-width: 600px;
     margin: 0 auto;
-    @media only screen and(max-width: 1190px) {
-      width: 1120px;
+    @media only screen and(max-width: 1180px) {
+      width: 980px;
     }
-    @media only screen and(max-width: 1120px) {
-      width: 840px;
+    @media only screen and(max-width: 1080px) {
+      width: 880px;
     }
-    @media only screen and(max-width: 920px) {
-      width: 820px;
+    @media only screen and(max-width: 980px) {
+      width: 780px;
+    }
+    @media only screen and(max-width: 880px) {
+      width: 600px;
     }
     .weibo,.article{
       float: right;
@@ -105,6 +106,7 @@ textarea{
 }
 
 .nav-write{
+  display: none;
   float: right;
   font-size: 0;
   a{
@@ -135,7 +137,6 @@ textarea{
 }
 
 .nav_login_list{
-  display: none;
   color: $nav_a;
   float: right;
   li{
@@ -150,6 +151,7 @@ textarea{
 }
 
 .nav_userHead{
+  display: none;
   float: right;
   height: 50px;
   vertical-align: middle;
@@ -346,116 +348,8 @@ textarea{
 
 
 .main{
-  width: 1120px;
-  margin: 70px auto;
-  @media only screen and(max-width: 1120px){
-    width: 810px;
-  }
-}
-.leftCol{
-  width: 240px;
-  margin-right: 10px;
-  float: left;
-  .userInfo{
-    background: darken($info_bg, 5%);
-    padding: 100px 10px 10px;
-    border-radius: 6px;
-    .userHead{
-      margin: 20px auto;
-      position: relative;
-      text-align: center;
-      a{
-        font-size: 16px;
-        font-family: "Microsoft YaHei UI", sans-serif;
-        color: white;
-      }
-      img{
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        margin-left: -40px;
-      }
-    }
-    .addFriend{
-      text-align: center;
-      a{
-        color: white;
-        background: darken(#6C94B8, 8%);
-        width: 121px;
-        height: 41px;
-        line-height: 41px;
-        border-radius: 20px;
-        display: inline-block;
-        &:hover{
-          background: darken(#6C94B8, 16%);
-        }
-      }
-    }
-  }
-}
-
-.rightCol{
-  box-sizing: border-box;
-  width: 260px;
-  float: right;
-  padding: 10px;
-  background: #fff;
-  border-radius: 10px;
-  margin-left: 10px;
-  border: 1px solid #ccc;
-  h3{
-    font-size: 18px;
-    color: $nav_a;
-    margin-bottom: 10px;
-  }
-  @media only screen and(max-width: 1120px){
-    display: none;
-  }
-}
-
-.msgHot{
-  li{
-    padding: 5px 0;
-    border-bottom: 1px dashed #ccc;
-    position: relative;
-    &:hover{
-      background: #ccc;
-      a{
-        &:after{
-          background: #ccc;
-        }
-      }
-    }
-    &:nth-child(1){
-      border-top: 1px dashed #ccc;
-    }
-    a{
-      height: 40px;
-      width: 100%;
-      display: block;
-      overflow: hidden;
-      img{
-        float: left;
-        margin-right: 10px;
-        margin-top: 3px;
-        width: 34px;
-        height: 34px;
-        border-radius: 5px;
-      }
-      &:after{
-        content:"...";
-        position:absolute;
-        top: 24px;
-        right:0;
-        padding: 0 5px 5px;
-        background-color: #fff;
-        font-weight:bold;
-      }
-    }
-  }
+  width: 600px;
+  margin: 60px auto;
 }
 .contentBox{
   float: left;

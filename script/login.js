@@ -137,7 +137,6 @@
     $.fn.msgBoxEvent=function(){
         if(!this[0]) return;
         var updatePhoto=[];
-        /*var _this=$(this);*/
         var _this=this;
         _this.msgTxtDetect();
         _this.delegate(".emojiSet","click", function (e) {
@@ -233,7 +232,6 @@
         $other.val(this.value);
         $(this).innerHeight($other[0].scrollHeight);
     }
-    $(".msgBox").eq(0).msgBoxEvent();
     $.fn.centerImg=function () {
         if(!this[0]) return;
         var imgW=this[0].naturalWidth;
@@ -721,12 +719,8 @@
     $("#nav-write").bind("click",function () {
         createNavMsgBox();
     });
-    /*document.getElementById("article").addEventListener("click", function (e) {
-
-    }, false);*/
     $("#article").on("click", function () {
-        //createArticle();
-        window.location.href="";
+        createArticle();
     });
     function dragDrop($target,$dragUtil) {
         var disX, disY, flag=false;
@@ -761,31 +755,5 @@
         }
         $(document).on("mousemove", mousemove);
         $(document).on("mouseup", mouseup);
-    }
-    $(window).on("scroll resize", function () {
-        var $rightCol=$("#rightCol");
-        if(!$rightCol.is(":hidden")){
-            var $main=$("#main");
-            $rightCol.css({
-                "position": "fixed",
-                "top": 70,
-                "left": $main.offset().left+$main.innerWidth()-$rightCol.outerWidth()-10
-            });
-        }
-    });
-    function createHotMsg() {
-        var info={
-            "userId": "111",
-            "userHead": "./imgs/head/boy.png",
-            "msg": "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以"
-        }
-        var $hostMsg=$("<li>" +
-            "<a href='"+info.userId+"'>" +
-            "<img src='"+info.userHead+"'>" + info.msg +
-            "</li>");
-        return $hostMsg;
-    }
-    for(var i=0;i<8;i++){
-        createHotMsg().appendTo($("#rightCol").find(".msgHot").eq(0));
     }
 })();
