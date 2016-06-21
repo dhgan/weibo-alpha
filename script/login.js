@@ -240,4 +240,15 @@
             }
         }
     });
+    function createLoad() {
+        return $("<div class='msgLoad'>" +
+            "<img src='./imgs/icon/load.png'>" +
+            "正在加载，请稍后" +
+            "</div>");
+    }
+    function createEmpty() {
+        return $("<div class='msgEmpty'>" +
+            "所符合的内容为空" +
+            "</div>")
+    }
 })();

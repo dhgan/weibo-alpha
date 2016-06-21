@@ -168,11 +168,12 @@
             var $this=$(this);
             var file=this.files[0];
             var url=createObjectURL(file);
+            $this.val("");
             if(file.size/1024>=10240){
-                alert("文件大小不能大于10m");
+                alertMsg("文件大小不能大于10m", _this, "error");
                 return;
             }else if(updatePhoto.length==9){
-                alert("图片数量不能超过9张");
+                alertMsg("图片数量不能超过9张", _this, "error");
                 return;
             }
             var imgY=new Image();
@@ -185,7 +186,6 @@
                 _this.find(".msgPhotoShow").append($div);
                 $img.clipImg();
                 updatePhoto.push(file);
-                $this.val("");
                 _this.find(".msgPhotoShow").height(Math.ceil(updatePhoto.length/5)*116);
             };
             imgY.src=url;
@@ -219,6 +219,7 @@
                     processData: false,
                     contentType: false,
                     success: function (e) {
+                        alertMsg("发表成功", _this.find(".msgTxt").eq(0), "success");
                         var info={
                             type: "msgList",
                             userLink: "#",
@@ -240,10 +241,10 @@
                         createMsgList(info).insertAfter($("#msgNav")).commentBoxEvent();
                         updatePhoto=[];
                         _this.find(".msgPhotoShow").empty().height(0);
-                        _this.find(".msgTxt").val("");
+                        _this.find(".msgTxt").val("").trigger("input");
                     },
                     error: function () {
-
+                        alertMsg("发表失败", _this.find(".msgTxt").eq(0), "error");
                     }
                 })
             }
@@ -523,12 +524,12 @@
         $window.on("scroll resize", function() {
             if(!$msgListBodyDemo) return;
             if ($msgListBodyDemo.is(":hidden") &&
-                (_this.offset().top + _this.outerHeight() -60 >
+                ($msgListBody.offset().top + $msgListBody.outerHeight() >
                 $window.scrollTop() + $window.height()) &&
-                (_this.offset().top - 60 < $window.scrollTop())) {
+                ($msgListBody.offset().top < $window.scrollTop())) {
                 $pull.addClass("msgPull");
                 $pull.css({
-                    "left": _this.offset().left + _this.outerWidth() -70
+                    "left": $msgListBody.offset().left + $msgListBody.outerWidth() -50
                 });
             } else {
                 $pull.removeClass("msgPull");
@@ -702,10 +703,17 @@
                 .appendTo($popMsgBox);
             $msgPublish.on("click", function () {
                 console.log($popMsgBox.find(".msgTitle input").val(), editor.$txt.html());
-                filterXSS(editor.$txt.html());
+                var msg=filterXSS(editor.$txt.html());
                 $.ajax({
-
-                });
+                    type: "post",
+                    url: "test.php",
+                    data: "msg="+msg
+                }).done(function () {
+                    editor.$txt.html("");
+                    alertMsg("发表成功", $editor, "success");
+                }).fail(function () {
+                    alertMsg("发表失败", $editor, "error");
+                })
             });
             dragDrop($popMsgBox, $msgHead);
             $popMsgBox.appendTo($pop);
@@ -714,6 +722,7 @@
                 "margin-top": 60
             });
             $pop.appendTo($("body"));
+            wangEditor.config.printLog=false;
             var editor = new wangEditor('editor');
             editor.config.printLog = false;
             editor.config.menuFixed = false;
@@ -729,7 +738,7 @@
             };
             editor.config.pasteFilter = true;
             editor.config.pasteText = true;
-            editor.config.uploadImgUrl = 'test.php';
+            editor.config.uploadImgUrl = 'test.php1';
             editor.config.uploadImgFileName='img';
             editor.create();
         }
@@ -962,7 +971,7 @@
                 userHead: "./imgs/head.png",
                 userName: "卡带机",
                 msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
-                msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+                msgTitle: "<h2>每个人都有！</h2>",
                 msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
                 msgLink: "javascript:",
                 msgPhotoNum: 6,
@@ -1108,5 +1117,16 @@
                 m.appendTo($('.contentBox'));
             }
         }
+    }
+    function createLoad() {
+        return $("<div class='msgLoad'>" +
+            "<img src='./imgs/icon/load.png'>" +
+            "正在加载，请稍后" +
+            "</div>");
+    }
+    function createEmpty() {
+        return $("<div class='msgEmpty'>" +
+            "所符合的内容为空" +
+            "</div>")
     }
 })();

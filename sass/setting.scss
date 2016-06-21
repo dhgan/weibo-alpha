@@ -27,8 +27,9 @@ body {
   background: image-url("bg.png");
   font: 14px/1.5 $font-family;
   min-width: 600px;
-  min-height: 120%;
+  min-height: 100%;
   overflow-y: scroll;
+  position: relative;
 }
 .fullScreenBody{
   height: 100%;
@@ -541,3 +542,15 @@ textarea{
     }
   }
 }
+#footer{
+  background-color: $color2;
+  line-height: 50px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  text-align: center;
+  color: $nav_a;
+}
+@import "tips";

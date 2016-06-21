@@ -207,7 +207,7 @@
                 var msg=_this.find(".msgTxt").val().trim();
                 msg=msg.replace(/\n/g," ");
                 var formData=new FormData();
-                msg=FilterXSS(msg);
+                msg=filterXSS(msg);
                 formData.append("message", msg);
                 updatePhoto.forEach(function(value, index){
                     formData.append("photo"+index, value);
@@ -219,10 +219,29 @@
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function () {
-                        updatePhoto=null;
+                    success: function (e) {
+                        alertMsg("发表成功", _this, "success");
+                        var info={
+                            type: "msgList",
+                            userLink: "#",
+                            msgListTime: "18:35",
+                            userHead: "./imgs/head.png",
+                            userName: "GDH",
+                            msgInfo: "2号中午12点开拍，我家货对于挑剔的人都说都有瑕疵，都存在不可以接受的范围。老粉都是看不到瑕疵的那种。所以新粉请一定要看清楚哦！如果你是一丝不苟的人，求放过！小店铺，么有退货服务！还有就是耐克的这款运动鞋，快点买起来再不减肥怎么对得起7,8月",
+                            msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+                            msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+                            msgLink: "javascript:",
+                            msgPhotoNum: 5,
+                            msgPhoto: [
+                                e,e,e,e,e,e,e
+                            ],
+                            msgLike: 55,
+                            msgComment: 2
+                        };
+                        info.msgInfo=msg;
+                        updatePhoto=[];
                         _this.find(".msgPhotoShow").empty().height(0);
-                        _this.find(".msgTxt").val("");
+                        _this.find(".msgTxt").val("").trigger("input");
                     },
                     error: function () {
 
@@ -489,12 +508,12 @@
         $window.on("scroll resize", function() {
             if(!$msgListBodyDemo) return;
             if ($msgListBodyDemo.is(":hidden") &&
-                (_this.offset().top + _this.outerHeight() -60 >
+                ($msgListBody.offset().top + $msgListBody.outerHeight() >
                 $window.scrollTop() + $window.height()) &&
-                (_this.offset().top - 60 < $window.scrollTop())) {
+                ($msgListBody.offset().top < $window.scrollTop())) {
                 $pull.addClass("msgPull");
                 $pull.css({
-                    "left": _this.offset().left + _this.outerWidth() -70
+                    "left": $msgListBody.offset().left + $msgListBody.outerWidth() -50
                 });
             } else {
                 $pull.removeClass("msgPull");
@@ -755,5 +774,35 @@
     }
     for(var i=0;i<8;i++){
         createHotMsg().appendTo($("#rightCol").find(".msgHot").eq(0));
+    }
+    function alertMsg(tips, $parent, type) {
+        var src="./imgs/icon/success.png";
+        if(type=="error") src="./imgs/icon/error.png";
+        var $tips= $("<div class='tips'></div>");
+        $tips.html("<img src='"+src+"'>"+tips)
+            .appendTo($parent)
+            .ready(function () {
+                $tips.css({
+                    "top": $parent.offset().top+$parent.height()/2,
+                    "left": $parent.offset().left+$parent.width()/2,
+                    "margin-left": -$tips.width()/2,
+                    "margin-top": -$tips.height()/2,
+                    "visibility": "visible"
+                });
+            });
+        setTimeout(function () {
+            $tips.remove();
+        },1500);
+    }
+    function createLoad() {
+        return $("<div class='msgLoad'>" +
+            "<img src='./imgs/icon/load.png'>" +
+            "正在加载，请稍后" +
+            "</div>");
+    }
+    function createEmpty() {
+        return $("<div class='msgEmpty'>" +
+            "所符合的内容为空" +
+            "</div>")
     }
 })();

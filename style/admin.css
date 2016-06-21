@@ -73,6 +73,7 @@ body {
   font: 14px/1.5 "Arial", "Microsoft YaHei";
   min-width: 600px;
   overflow-y: hidden;
+  position: relative;
 }
 
 .fullScreenBody {
@@ -479,4 +480,58 @@ textarea {
 .commentList .commentFooter a {
   float: right;
   margin-right: 10px;
+}
+
+.msgEmpty {
+  background: #fff;
+  border: 1px solid #d1dce3;
+  padding: 30px 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 16px;
+  color: #33475f;
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  12.5% {
+    transform: rotate(45deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  37.5% {
+    transform: rotate(135deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  62.5% {
+    transform: rotate(225deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  87.5% {
+    transform: rotate(315deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.msgLoad {
+  background: #fff;
+  border: 1px solid #d1dce3;
+  margin: 10px 0;
+  text-align: center;
+  color: #33475f;
+  vertical-align: middle;
+  line-height: 31px;
+}
+.msgLoad img {
+  vertical-align: middle;
+  margin-right: 5px;
+  animation: load 1s linear infinite;
 }

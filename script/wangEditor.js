@@ -3173,7 +3173,7 @@ _e(function (E, $) {
     E.config.zindex = 10000;
 
     // 是否打印log
-    E.config.printLog = false;
+    E.config.printLog = true;
 
     // 菜单吸顶：false - 不吸顶；number - 吸顶，值为top值
     E.config.menuFixed = 0;
@@ -6398,7 +6398,7 @@ _e(function (E, $) {
             if (resultText.indexOf('error|') === 0) {
                 // 提示错误
                 E.warn('上传失败：' + resultText.split('|')[1]);
-                alert(resultText.split('|')[1]);
+                alertMsg(resultText.split('|')[1], editor, "error");
             } else {
                 E.log('上传成功，即将插入编辑区域，结果为：' + resultText);
 
@@ -6413,7 +6413,8 @@ _e(function (E, $) {
                 };
                 img.onerror = function () {
                     E.error('使用返回的结果获取图片，发生错误。请确认以下结果是否正确：' + resultText);
-                    alert("服务器异常，请稍后再试。");
+                    console.log(editor);
+                    alertMsg("服务器异常，请稍后再试。", editor.$txt, "error");
                     img = null;
                 };
                 img.src = resultText;
