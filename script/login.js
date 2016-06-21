@@ -88,7 +88,7 @@
             e.preventDefault();
             e.returnValue=false;
             e.stopPropagation();
-            window.location.href="./home.html";
+            window.location.href="./page.html";
         })
     };
     function createMsgListDemo(info){
@@ -137,29 +137,29 @@
         return $msgListContentBox;
     }
     var time=0;
+    var info={
+        type: "msgList",
+        userLink: "#",
+        msgListTime: "17:35",
+        userHead: "./imgs/head.png",
+        userName: "卡带机",
+        msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
+        msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+        msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+        msgLink: "javascript:",
+        msgPhotoNum: 6,
+        msgPhoto: [
+            "./imgs/11.jpg",
+            "./imgs/2.jpg",
+            "./imgs/3.jpg",
+            "./imgs/1.jpg",
+            "./imgs/3.jpg",
+            "./imgs/2.jpg"
+        ],
+        msgLike: 66,
+        msgComment: 6
+    };
     var timer=setInterval(function () {
-        var info={
-            type: "msgList",
-            userLink: "#",
-            msgListTime: "17:35",
-            userHead: "./imgs/head.png",
-            userName: "卡带机",
-            msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
-            msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
-            msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
-            msgLink: "javascript:",
-            msgPhotoNum: 6,
-            msgPhoto: [
-                "./imgs/11.jpg",
-                "./imgs/2.jpg",
-                "./imgs/3.jpg",
-                "./imgs/1.jpg",
-                "./imgs/3.jpg",
-                "./imgs/2.jpg"
-            ],
-            msgLike: 66,
-            msgComment: 6
-        };
         if(time<5){
             time++;
             var m;
@@ -178,28 +178,6 @@
                 m=createMsgListDemo(info);
                 m.commentBoxEvent();
                 m.appendTo($('.contentBox'));
-                /*var $msgListBody=m.find(".msgListBody").eq(0);
-                if($msgListBody.height()>200) {
-                    $msgListBody.hide();
-                    var $pull = $("<a href='javascript:;' class='pull'>收起</a>");
-                    $msgListBody.append($pull);
-                    var $spread = $("<a href='javascript:;'>展开</a>");
-                    var $msgListBodyDemo = $("<div class='msgListBodyDemo clearfix'></div>");
-                    var $img = $msgListBody.find("img");
-                    var $imgDemo = "";
-                    if ($img.length > 0) {
-                        $imgDemo = "<div><img src='" + $img[0].src + "' /></div>";
-                    }
-                    var omit=""
-                    var msg=$(info.msgInfo).text();
-                    if(msg.length>100) omit="...";
-                    $msgListBodyDemo.html($imgDemo + info.msgTitle +
-                        msg.substring(0, 100) + omit)
-                        .append($spread).insertAfter($msgListBody);
-                    $msgListBodyDemo.find("img").on("load",function () {
-                        $(this).clipImg();
-                    });
-                }*/
             }
         }else{
             clearInterval(timer);
@@ -240,4 +218,26 @@
         $(document).on("mousemove", mousemove);
         $(document).on("mouseup", mouseup);
     }
+    $(window).on("scroll resize", function () {
+        if($(window).scrollTop()+$(window).height()==$(document.body).outerHeight(true)) {
+            for(var time=0;time<5;time++){
+                if(time%2) {
+                    info.msgPhotoNum=time;
+                    m = createMsgListDemo(info);
+                    m.commentBoxEvent();
+                    m.appendTo($('.contentBox').eq(0));
+                } else{
+                    info.msgInfo='<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白' +
+                        '<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span>' +
+                        '<font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><a href="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg" target="_blank"><img src="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg"></a><p>' +
+                        '<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span><font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><p>';
+                    info.type="article";
+                    info.msgInfo+=info.msgInfo;
+                    m=createMsgListDemo(info);
+                    m.commentBoxEvent();
+                    m.appendTo($('.contentBox').eq(0));
+                }
+            }
+        }
+    });
 })();

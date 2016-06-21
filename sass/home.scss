@@ -122,7 +122,8 @@ textarea{
   margin: 0 auto;
   height: 50px;
   a{
-    display: inline-block;
+    display: block;
+    margin: 0 auto;
     width: 50px;
     height: 50px;
     background: image-url('icon/home.png') no-repeat center;
@@ -165,11 +166,6 @@ textarea{
   img{
     width: 36px;
     height: 36px;
-  }
-  &:hover{
-    .nav_set{
-      display: block;
-    }
   }
 }
 
@@ -312,40 +308,12 @@ textarea{
     @include border-top-radius(0);
     @include border-bottom-radius(10px);
   }
-  .msgFooter{
-    position: relative;
-    background: #fff;
-    line-height: 30px;
-    padding: 10px;
-    @include border-bottom-radius(10px);
-    text-align: center;
-    a{
-      display: inline-block;
-      padding: 5px 15px;
-      margin-right: 15px;
-      border-radius: 8px;
-    }
-    .msgPublish{
-      color: white;
-      background: #0084B4;
-      box-shadow: 1px 1px 2px #0084B4;
-      &:hover{
-        background: $a_hover_color;
-      }
-    }
-    .msgPreview{
-      color: $nav_a;
-      padding: 4px 15px;
-      border: 1px solid #ccc;
-      box-shadow: 1px 1px 2px #ccc;
-    }
-  }
 }
 
 
 .main{
   width: 860px;
-  margin-top: 70px;
+  padding-top: 70px;
   margin-left: calc(35% - 301px);
 }
 .leftCol{
@@ -388,67 +356,6 @@ textarea{
         &:hover{
           background: darken(#6C94B8, 16%);
         }
-      }
-    }
-  }
-}
-
-.rightCol{
-  box-sizing: border-box;
-  width: 260px;
-  float: right;
-  padding: 10px;
-  background: #fff;
-  border-radius: 10px;
-  margin-left: 10px;
-  border: 1px solid #ccc;
-  h3{
-    font-size: 18px;
-    color: $nav_a;
-    margin-bottom: 10px;
-  }
-  @media only screen and(max-width: 1120px){
-    display: none;
-  }
-}
-
-.msgHot{
-  li{
-    padding: 5px 0;
-    border-bottom: 1px dashed #ccc;
-    position: relative;
-    &:hover{
-      background: #ccc;
-      a{
-        &:after{
-          background: #ccc;
-        }
-      }
-    }
-    &:nth-child(1){
-      border-top: 1px dashed #ccc;
-    }
-    a{
-      height: 40px;
-      width: 100%;
-      display: block;
-      overflow: hidden;
-      img{
-        float: left;
-        margin-right: 10px;
-        margin-top: 3px;
-        width: 34px;
-        height: 34px;
-        border-radius: 5px;
-      }
-      &:after{
-        content:"...";
-        position:absolute;
-        top: 24px;
-        right:0;
-        padding: 0 5px 5px;
-        background-color: #fff;
-        font-weight:bold;
       }
     }
   }
@@ -523,9 +430,6 @@ textarea{
       &:hover{
         i{
           background: image_url("icon/emoji_hover.png") no-repeat center;
-        }
-        .emojiSet{
-          display: block;
         }
       }
     }
@@ -689,6 +593,25 @@ textarea{
   }
 }
 
+.msgNav{
+  margin-bottom: 10px;
+  background: #fff;
+  color: $nav_a;
+  height: 31px;
+  border: 1px solid $border_color;
+  li{
+    cursor: pointer;
+    float: left;
+    padding: 5px 10px;
+    margin-right: 1px;
+    &:hover,&.active{
+      background: $bg_color;
+      color: #fff;
+    }
+  }
+}
+
+
 
 /*msg list*/
 .msgListContentBox{
@@ -708,8 +631,67 @@ textarea{
     right: 10px;
     cursor: pointer;
     background: image_url("icon/msgDel.png") no-repeat center;
-    &:hover{
+    &:hover, &.active{
       background: image_url("icon/msgDel_hover.png") no-repeat center;
+    }
+    .msgDelTips{
+      display: none;
+      position: absolute;
+      background: #fff;
+      width: 189px;
+      left: -90px;
+      border: 1px solid #ccc;
+      box-shadow:0 4px 20px 1px rgba(0,0,0,0.2);
+      border-radius: 3px;
+      color: $nav_a;
+      height: 90px;
+      top: -100px;
+      z-index: 999;
+      box-sizing: border-box;
+      padding: 16px;
+      &:before{
+        content: "";
+        height: 0;
+        border-top: 10px solid $color2;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+        margin-left: -4px;
+        z-index: 10;
+      }
+      &:after{
+        content: "";
+        height: 0;
+        border-top: 12px solid $D2;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        position: absolute;
+        left: 50%;
+        bottom: -12px;
+        margin-left: -6px;
+        z-index: 9;
+      }
+      p{
+        margin-bottom: 16px;
+        text-align: center;
+      }
+      div{
+        margin: 0 9px;
+        a{
+          &:nth-child(1){
+            margin-right: 11px;
+          }
+          width: 60px;
+          line-height: 24px;
+          display: inline-block;
+          background: $a_color;
+          text-align: center;
+          color: #fff;
+          border-radius: 5px;
+        }
+      }
     }
   }
   &:hover{

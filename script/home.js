@@ -64,6 +64,22 @@
             return null;
         }
     }
+
+    (function () {
+        var $navUserHead=$("#navUserHead");
+        var navTimer;
+        $navUserHead.on("mouseover", function () {
+            if(navTimer) clearTimeout(navTimer);
+            $(this).find(".nav_set").show();
+        });
+        $navUserHead.on("mouseout", function () {
+            var _this=$(this);
+            navTimer=setTimeout(function () {
+                _this.find(".nav_set").hide();
+            }, 1000);
+        })
+    })();
+
     $.fn.clipImg=function() {
         if(!this[0]) return;
         var imgW=this[0].naturalWidth;
@@ -298,6 +314,28 @@
     $.fn.commentBoxEvent=function () {
         if(!this[0]) return;
         var _this=this;
+        _this.delegate(".msgDel", "click", function (e) {
+            $(this).addClass("active")
+                .find(".msgDelTips").show();
+        });
+        _this.delegate(".msgDel .msgDelTips a", "click", function (e) {
+            e.stopPropagation();
+            e.returnValue=false;
+            if($(this).hasClass("sure")){
+                $.ajax({
+                    type: "post",
+                    url: "",
+                    success: function () {
+                        _this.parent().find(".msgListContentBox").length===1&&updateMsg();
+                        _this.remove();
+                    }
+
+                });
+            }else{
+                $(this).parents(".msgDel").removeClass("active")
+                    .find(".msgDelTips").hide();
+            }
+        })
         _this.delegate(".msgListPhoto", "click", function (e) {
             var $this=$(this);
             function createMsgListPhotoShow() {
@@ -337,7 +375,7 @@
                         $(this).clipImg();
                     });
                 }
-                $window.scrollTop(_this.offset().top-60);
+                $window.scrollTop(bps.offset().top-60);
             }
         });
         _this.delegate(".big_photo_show","click",function () {
@@ -396,6 +434,14 @@
                 }
             });
         }
+        _this.delegate(".msgEmoji", "click", function (e) {;
+            e.stopPropagation();
+            e.returnValue=false;
+            $(this).find(".emojiSet").show();
+        });
+        $(window).on("click", function () {
+            _this.find(".msgEmoji .emojiSet").hide();
+        });
         _this.delegate(".emojiSet", "click", function (e) {
             var target=e.target;
             if(target.tagName.toLowerCase()==="a"){
@@ -477,7 +523,15 @@
     }
     function createMsgList(info){
         var $msgListContentBox=$("<div class='msgListContentBox clearfix' data-msg-type='"+info.type+"'></div>")
-        $("<div class='msgDel'></div>").appendTo($msgListContentBox);
+        $("<div class='msgDel'>" +
+            "<div class='msgDelTips'>" +
+                "<p>确定要删除这条微博吗？</p>" +
+                "<div>" +
+                    "<a href='javascript:;' class='sure'>确定</a>" +
+                    "<a href='javascript:;' class='cancel'>取消</a>" +
+                "</div>" +
+            "</div>"+
+            "</div>").appendTo($msgListContentBox);
         var $msgListContent=$("<div class='msgListContent'></div>");
         $("<div class='msgListUserInfo'>" +
             "<a href='"+info.userLink+"'>" +
@@ -525,53 +579,7 @@
                 "<li class='msgLike'><i>&nbsp;</i><span>" + info.msgLike + "</span></li>" +
                 "<li class='msgComment'><i>&nbsp;</i><span>" + info.msgComment + "</span><b></b></li></ul>")
                 .appendTo($msgListContent);
-        }
-        $msgListContent.appendTo($msgListContentBox);
-        return $msgListContentBox;
-    }
-    var time=0;
-    var timer=setInterval(function () {
-        var info={
-            type: "msgList",
-            userLink: "#",
-            msgListTime: "17:35",
-            userHead: "./imgs/head.png",
-            userName: "卡带机",
-            msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
-            msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
-            msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
-            msgLink: "javascript:",
-            msgPhotoNum: 6,
-            msgPhoto: [
-                "./imgs/11.jpg",
-                "./imgs/2.jpg",
-                "./imgs/3.jpg",
-                "./imgs/1.jpg",
-                "./imgs/3.jpg",
-                "./imgs/2.jpg"
-            ],
-            msgLike: 66,
-            msgComment: 6
-        };
-        if(time<5){
-            time++;
-            var m;
-            if(time%2) {
-                info.msgPhotoNum=time;
-                m = createMsgList(info);
-                m.commentBoxEvent();
-                m.appendTo($('.contentBox').eq(0));
-            } else{
-                info.msgInfo='<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白' +
-                    '<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span>' +
-                    '<font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><a href="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg" target="_blank"><img src="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg"></a><p>' +
-                    '<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span><font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><p>';
-                info.type="article";
-                info.msgInfo+=info.msgInfo;
-                m=createMsgList(info);
-                m.commentBoxEvent();
-                m.appendTo($('.contentBox'));
-                var $msgListBody=m.find(".msgListBody").eq(0);
+            $msgListBody.ready(function () {
                 if($msgListBody.height()>200) {
                     $msgListBody.hide();
                     var $pull = $("<a href='javascript:;' class='pull'>收起</a>");
@@ -590,12 +598,11 @@
                         $(this).clipImg();
                     });
                 }
-            }
-        }else{
-            clearInterval(timer);
+            });
         }
-
-    },1000);
+        $msgListContent.appendTo($msgListContentBox);
+        return $msgListContentBox;
+    }
     /*create msgBox*/
     function createMsgBox() {
         var $msgBox=$("<div class='msgBox'></div>");
@@ -627,72 +634,6 @@
         return $msgBox;
 
     }
-    function createArticle() {
-        var $pop=$("#gdh-article");
-        if($pop.length){
-            $pop.show();
-        }else{
-            $pop=$("<div id='gdh-article'></div>");
-            var $popMsgBox=$("<div class='popMsgBox'></div>");
-            var $msgHead=$("<div class='msgHead'>" +
-                "<h3>文章</h3>" +
-                "<i></i> </div>");
-            $msgHead.appendTo($popMsgBox);
-            $("<div class='msgTitle'>" +
-                "<input type='text' placeholder='文章标题'>" +
-                "</div>").appendTo($popMsgBox);
-            var $newS=createMsgBox();
-            $newS.msgBoxEvent();
-            var $shadowBox=$("<div class='shadowBox'></div>");
-            $shadowBox.on("click", function () {
-                $pop.hide();
-            });
-            $popMsgBox.delegate(".msgHead i", "click", function () {
-                $pop.hide();
-            });
-            $shadowBox.appendTo($pop);
-            var $editor=$("<div id='editor'></div>");
-            $editor.css({
-                "height": 400,
-                "overflow-y": "scroll"
-            });
-            $editor.appendTo($popMsgBox);
-            var $msgPublish=$("<a href='javascript:;' class='msgPublish'>下一步</a>");
-            var $msgPreview=$("<a href='javascript:;' class='msgPreview'>预览</a>");
-            $("<div class='msgFooter'></div>")
-                .append($msgPublish)
-                .append($msgPreview)
-                .appendTo($popMsgBox);
-            $msgPublish.on("click", function () {
-                console.log($popMsgBox.find(".msgTitle input").val(), editor.$txt.html());
-                filterXSS(editor.$txt.html());
-            });
-            dragDrop($popMsgBox, $msgHead);
-            $popMsgBox.appendTo($pop);
-            $popMsgBox.css({
-                width: 640,
-                "margin-top": 60
-            });
-            $pop.appendTo($("body"));
-            var editor = new wangEditor('editor');
-            editor.config.menuFixed = false;
-            editor.config.fontsizes = {
-                // 格式：'value': 'title'
-                1: '12px',
-                2: '14px',
-                3: '16px',
-                4: '20px',
-                5: '22px',
-                6: '24px',
-                7: '28px'
-            };
-            editor.config.pasteFilter = true;
-            editor.config.pasteText = true;
-            editor.config.uploadImgUrl = 'test.php';
-            editor.config.uploadImgFileName='img';
-            editor.create();
-        }
-    }
     function createNavMsgBox() {
         var $pop=$("#gdh-msg");
         if($pop.length){
@@ -706,6 +647,14 @@
             $msgHead.appendTo($popMsgBox);
             var $newS=createMsgBox();
             $newS.msgBoxEvent();
+            $newS.delegate(".msgEmoji", "click", function (e) {;
+                e.stopPropagation();
+                e.returnValue=false;
+                $(this).find(".emojiSet").show();
+            });
+            $(window).on("click", function () {
+                $newS.find(".msgEmoji .emojiSet").hide();
+            });
             $newS.appendTo($popMsgBox);
             var $shadowBox=$("<div class='shadowBox'></div>");
             $shadowBox.on("click", function () {
@@ -723,8 +672,118 @@
     $("#nav-write").bind("click",function () {
         createNavMsgBox();
     });
-    $("#article").on("click", function () {
-        createArticle();
+    $("#msgNav").delegate("li", "click", function () {
+        $(this).addClass("active").siblings().removeClass("active");
+        if($(this).hasClass("msgAll")){
+            for(var i=0;i<10;i++){
+                $.ajax({
+
+                });
+                $('.contentBox .msgListContentBox').remove();
+                var info = {
+                    type: "msgList",
+                    userLink: "#",
+                    msgListTime: "17:35",
+                    userHead: "./imgs/head.png",
+                    userName: "卡带机",
+                    msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
+                    msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+                    msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+                    msgLink: "javascript:",
+                    msgPhotoNum: 6,
+                    msgPhoto: [
+                        "./imgs/11.jpg",
+                        "./imgs/2.jpg",
+                        "./imgs/3.jpg",
+                        "./imgs/1.jpg",
+                        "./imgs/3.jpg",
+                        "./imgs/2.jpg"
+                    ],
+                    msgLike: 66,
+                    msgComment: 6
+                };
+                if (time % 2) {
+                    info.msgPhotoNum = time;
+                    m = createMsgList(info);
+                    m.commentBoxEvent();
+                    m.appendTo($('.contentBox').eq(0));
+                } else {
+                    info.msgInfo = '<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白' +
+                        '<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span>' +
+                        '<font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><a href="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg" target="_blank"><img src="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg"></a><p>' +
+                        '<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span><font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><p>';
+                    info.type = "article";
+                    info.msgInfo += info.msgInfo;
+                    m = createMsgList(info);
+                    m.commentBoxEvent();
+                    m.appendTo($('.contentBox'));
+                }
+            }
+        } else if($(this).hasClass("msgWB")){
+            $('.contentBox .msgListContentBox').remove();
+            var info={
+                type: "msgList",
+                userLink: "#",
+                msgListTime: "17:35",
+                userHead: "./imgs/head.png",
+                userName: "卡带机",
+                msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
+                msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+                msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+                msgLink: "javascript:",
+                msgPhotoNum: 6,
+                msgPhoto: [
+                    "./imgs/11.jpg",
+                    "./imgs/2.jpg",
+                    "./imgs/3.jpg",
+                    "./imgs/1.jpg",
+                    "./imgs/3.jpg",
+                    "./imgs/2.jpg"
+                ],
+                msgLike: 66,
+                msgComment: 6
+            };
+            for(var i=0;i<10;i++){
+                m=createMsgList(info);
+                m.commentBoxEvent();
+                m.appendTo($('.contentBox'));
+            }
+        } else{
+            $('.contentBox .msgListContentBox').remove();
+            var info={
+                type: "msgList",
+                userLink: "#",
+                msgListTime: "17:35",
+                userHead: "./imgs/head.png",
+                userName: "卡带机",
+                msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
+                msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+                msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+                msgLink: "javascript:",
+                msgPhotoNum: 6,
+                msgPhoto: [
+                    "./imgs/11.jpg",
+                    "./imgs/2.jpg",
+                    "./imgs/3.jpg",
+                    "./imgs/1.jpg",
+                    "./imgs/3.jpg",
+                    "./imgs/2.jpg"
+                ],
+                msgLike: 66,
+                msgComment: 6
+            };
+            info.msgInfo='<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白' +
+                '<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span>' +
+                '<font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><a href="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg" target="_blank"><img src="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg"></a><p>' +
+                '<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span><font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><p>';
+            info.type="article";
+            info.msgInfo+=info.msgInfo;
+            for(var i=0;i<10;i++){
+                m=createMsgList(info);
+                m.commentBoxEvent();
+                m.appendTo($('.contentBox'));
+            }
+        }
     });
     function dragDrop($target,$dragUtil) {
         var disX, disY, flag=false;
@@ -770,5 +829,164 @@
                 "left": $main.offset().left
             });
         }
+    });
+    var time=0;
+    var m;
+    var timer=setInterval(function () {
+        var info={
+            type: "msgList",
+            userLink: "#",
+            msgListTime: "17:35",
+            userHead: "./imgs/head.png",
+            userName: "卡带机",
+            msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
+            msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+            msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+            msgLink: "javascript:",
+            msgPhotoNum: 6,
+            msgPhoto: [
+                "./imgs/11.jpg",
+                "./imgs/2.jpg",
+                "./imgs/3.jpg",
+                "./imgs/1.jpg",
+                "./imgs/3.jpg",
+                "./imgs/2.jpg"
+            ],
+            msgLike: 66,
+            msgComment: 6
+        };
+        if(time<5){
+            time++;
+            if(time%2) {
+                info.msgPhotoNum=time;
+                m = createMsgList(info);
+                m.commentBoxEvent();
+                m.appendTo($('.contentBox').eq(0));
+            } else{
+                info.msgInfo='<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白' +
+                    '<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span>' +
+                    '<font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><a href="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg" target="_blank"><img src="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg"></a><p>' +
+                    '<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span><font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><p>';
+                info.type="article";
+                info.msgInfo+=info.msgInfo;
+                m=createMsgList(info);
+                m.commentBoxEvent();
+                m.appendTo($('.contentBox'));
+            }
+        }else{
+            clearInterval(timer);
+        }
+
+    },100);
+    function updateMsg() {
+        var $active=$("#msgNav").find(".active");
+        if($active.hasClass("msgAll")){
+            for(time=0;time<5;time++){
+                var info={
+                    type: "msgList",
+                    userLink: "#",
+                    msgListTime: "17:35",
+                    userHead: "./imgs/head.png",
+                    userName: "卡带机",
+                    msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
+                    msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+                    msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+                    msgLink: "javascript:",
+                    msgPhotoNum: 6,
+                    msgPhoto: [
+                        "./imgs/11.jpg",
+                        "./imgs/2.jpg",
+                        "./imgs/3.jpg",
+                        "./imgs/1.jpg",
+                        "./imgs/3.jpg",
+                        "./imgs/2.jpg"
+                    ],
+                    msgLike: 66,
+                    msgComment: 6
+                };
+                if(time%2) {
+                    info.msgPhotoNum=time;
+                    m = createMsgList(info);
+                    m.commentBoxEvent();
+                    m.appendTo($('.contentBox').eq(0));
+                } else{
+                    info.msgInfo='<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白' +
+                        '<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span>' +
+                        '<font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><a href="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg" target="_blank"><img src="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg"></a><p>' +
+                        '<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span><font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><p>';
+                    info.type="article";
+                    info.msgInfo+=info.msgInfo;
+                    m=createMsgList(info);
+                    m.commentBoxEvent();
+                    m.appendTo($('.contentBox').eq(0));
+                }
+            }
+        } else if($active.hasClass("msgWB")){
+            var info={
+                type: "msgList",
+                userLink: "#",
+                msgListTime: "17:35",
+                userHead: "./imgs/head.png",
+                userName: "卡带机",
+                msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
+                msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+                msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+                msgLink: "javascript:",
+                msgPhotoNum: 6,
+                msgPhoto: [
+                    "./imgs/11.jpg",
+                    "./imgs/2.jpg",
+                    "./imgs/3.jpg",
+                    "./imgs/1.jpg",
+                    "./imgs/3.jpg",
+                    "./imgs/2.jpg"
+                ],
+                msgLike: 66,
+                msgComment: 6
+            };
+            for(var i=0;i<10;i++){
+                m=createMsgList(info);
+                m.commentBoxEvent();
+                m.appendTo($('.contentBox'));
+            }
+        } else{
+            var info={
+                type: "msgList",
+                userLink: "#",
+                msgListTime: "17:35",
+                userHead: "./imgs/head.png",
+                userName: "卡带机",
+                msgInfo: "WWDC 大会将在下周举行了，在今年的这场大会上苹果公司将以更新软件为主，或许是因为这场大会上要发布的东西太多，苹果提前公开了将会在今年晚些时候更新的 App Store 2.0，这样到时候在 WWDC 大会上苹果就可以有针对性地对这次更新加以说明。被吐槽了这么多年的App Store要重新出发了~",
+                msgTitle: "<h2>每个人都有的白T恤，但我就是穿的比你美！</h2>",
+                msgReply: "柳岩不哭，强烈要求大国文化道歉#大国文化给柳岩道歉#",
+                msgLink: "javascript:",
+                msgPhotoNum: 6,
+                msgPhoto: [
+                    "./imgs/11.jpg",
+                    "./imgs/2.jpg",
+                    "./imgs/3.jpg",
+                    "./imgs/1.jpg",
+                    "./imgs/3.jpg",
+                    "./imgs/2.jpg"
+                ],
+                msgLike: 66,
+                msgComment: 6
+            };
+            info.msgInfo='<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白' +
+                '<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span>' +
+                '<font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><a href="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg" target="_blank"><img src="http://localhost:8090/WebstormProjects/weibo-alpha/imgs/1.jpg"></a><p>' +
+                '<p><b>图一是我之前推荐给</b>你们的，帮你们代购的黑BA防晒霜获得日本各种大奖，后面几张都是POLA的明星产品美白丸和抗糖丸，专柜经常是断货状态，很</p><p>难买到<strike>，我自己这次在日本</strike><i><strike>也买</strike>了美白<font color="#ff0000">丸和抗糖丸。不加代购费！不加任</font></i><font color="#ff0000">何</font>国际运费！<a href="1" target="_blank">还是专柜退完税的</a>价</p><p><ul><li><span style="font-size: 14px; line-height: 1.8;">格帮你们代购[可</span><font face="Times New Roman" style="font-style: inherit; font-variant: inherit; font-weight: inherit;">爱]有需要的妞请联</font><span style="font-size: 14px; line-height: 1.8;">系店铺客服拍，.</span><br></li></ul></p><p>';
+            info.type="article";
+            info.msgInfo+=info.msgInfo;
+            for(var i=0;i<10;i++){
+                m=createMsgList(info);
+                m.commentBoxEvent();
+                m.appendTo($('.contentBox'));
+            }
+        }
+    }
+    $(window).on("scroll resize", function () {
+        if($(window).scrollTop()+$(window).height()==$(document.body).outerHeight(true))
+            updateMsg();
     });
 })();

@@ -63,12 +63,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   clear: both;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   background: url('../imgs/bg.png?1465733283');
   font: 14px/1.5 "Arial", "Microsoft YaHei";
   min-width: 600px;
-  min-height: 120%;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .fullScreenBody {
@@ -92,107 +96,81 @@ i {
   font-style: italic;
 }
 
-#header {
-  background-color: #FFFBF5;
-  line-height: 50px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  box-shadow: 0 1px 2px rgba(51, 71, 95, 0.5);
-  z-index: 999;
-}
-#header .container {
-  max-width: 1180px;
-  min-width: 600px;
-  margin: 0 auto;
-}
-@media only screen and (max-width: 1180px) {
-  #header .container {
-    width: 980px;
-  }
-}
-@media only screen and (max-width: 1080px) {
-  #header .container {
-    width: 880px;
-  }
-}
-@media only screen and (max-width: 980px) {
-  #header .container {
-    width: 780px;
-  }
-}
-@media only screen and (max-width: 880px) {
-  #header .container {
-    width: 600px;
-  }
-}
-#header .container .weibo, #header .container .article {
-  float: right;
-  width: 60px;
-  height: 30px;
-  line-height: 30px;
-  border: 1px solid #ccc;
-  color: black;
-  border-radius: 5px;
-  margin: 10px 20px;
-  box-shadow: 1px 1px 2px #ccc;
-  text-align: center;
-  cursor: pointer;
-}
-
-.logo {
-  float: left;
-  height: 50px;
-  font-size: 0;
-}
-.logo a {
-  background: url('../imgs/logo1.png?1464496542') no-repeat left;
-  display: inline-block;
-  vertical-align: middle;
-  height: 40px;
-  width: 200px;
-}
-
-.nav_home {
-  text-align: center;
-  font-size: 0;
-  margin: 0 auto;
-  height: 50px;
-}
-.nav_home a {
-  display: block;
-  margin: 0 auto;
-  width: 50px;
-  height: 50px;
-  background: url('../imgs/icon/home.png?1466005641') no-repeat center;
-}
-.nav_home a:hover {
-  background: url('../imgs/icon/home_hover.png?1466005706') no-repeat center;
-}
-
-.nav_login_list {
-  color: #33475f;
-  float: right;
-}
-.nav_login_list li {
-  display: inline-block;
-  vertical-align: middle;
-}
-.nav_login_list li a {
-  float: left;
-  height: 50px;
-  padding: 0 6px;
+textarea {
+  word-break: keep-all;
+  word-wrap: break-word;
 }
 
 .main {
-  width: 600px;
-  margin: 0 auto;
-  padding: 70px 0;
+  width: 1245px;
+  margin: 0px auto 0;
+  height: 100%;
+}
+
+.content {
+  width: 620px;
+  float: left;
+  height: 100%;
+}
+.content:nth-child(1) {
+  margin-right: 5px;
+}
+.content .contentHead {
+  line-height: 26px;
+  margin: 4px 260px;
+  font-size: 18px;
+  text-align: center;
+  background: #367fa9;
+  color: white;
+  border-radius: 10px;
 }
 
 .contentBox {
+  height: calc(100% - 34px);
+  overflow-y: scroll;
+  position: relative;
+}
+
+.contentHot {
+  height: calc(100% - 34px);
+  overflow-y: scroll;
+}
+
+.msgPhotoShow {
+  height: 0;
+  overflow: hidden;
+  transition: height 300ms ease-in-out 300ms;
+}
+.msgPhotoShow div {
+  width: 107px;
+  height: 108px;
+  margin: 4px;
   float: left;
+  line-height: 100px;
+  font-size: 0;
+  text-align: center;
+  background: #ccd6dd;
+  position: relative;
+  overflow: hidden;
+}
+.msgPhotoShow div img {
+  vertical-align: middle;
+}
+.msgPhotoShow div span {
+  display: none;
+  position: absolute;
+  cursor: pointer;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  background: url('../imgs/icon/delete.png?1465144093') no-repeat center;
+}
+.msgPhotoShow div span:hover {
+  background: url('../imgs/icon/delete_hover.png?1465144075') no-repeat center;
+}
+.msgPhotoShow div:hover span {
+  display: block;
 }
 
 /*msg list*/
@@ -204,23 +182,19 @@ i {
   box-sizing: border-box;
   position: relative;
   background: #fff;
-  cursor: pointer;
 }
-.msgListContentBox .msgDel {
-  display: none;
-  width: 20px;
-  height: 20px;
+.msgListContentBox .msgOperate {
+  padding: 5px 10px;
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
-  background: url('../imgs/icon/msgDel.png?1465477867') no-repeat center;
+  background: #1b95e0;
+  color: white;
+  border-radius: 6px;
 }
-.msgListContentBox .msgDel:hover {
-  background: url('../imgs/icon/msgDel_hover.png?1465477904') no-repeat center;
-}
-.msgListContentBox:hover {
-  background: #edf3f8;
+.msgListContentBox .msgOperate:hover {
+  background: #2B7BB9;
 }
 .msgListContentBox .msgListContent {
   padding: 4px;
@@ -278,8 +252,6 @@ i {
 }
 .msgListContentBox .msgListContent .msgListBodyDemo {
   margin-top: 10px;
-  height: 94px;
-  overflow: hidden;
 }
 .msgListContentBox .msgListContent .msgListBodyDemo h2 {
   font-size: 18px;
@@ -289,8 +261,8 @@ i {
 }
 .msgListContentBox .msgListContent .msgListBodyDemo div {
   float: left;
-  width: 92px;
-  height: 92px;
+  width: 120px;
+  height: 120px;
   margin: 0 10px 10px 0;
   overflow: hidden;
 }
@@ -442,4 +414,69 @@ i {
 }
 .msgListContent .msgListFooter li:hover {
   color: #2B7BB9;
+}
+
+.commentTotal {
+  margin-left: -60px;
+}
+.commentTotal > .commentBox {
+  padding-left: 65px;
+  padding-top: 10px;
+}
+.commentTotal > .commentBox img {
+  width: 32px;
+  float: left;
+  margin-left: -50px;
+  border-radius: 5px;
+}
+
+.commentBox {
+  width: 100%;
+  background: #efefef;
+  border-radius: 0;
+  padding: 5px;
+}
+.commentBox .msgTxt {
+  padding: 5px 5px 0 5px;
+  height: 30px;
+  min-height: 30px;
+  margin-bottom: 0;
+}
+.commentBox .msgAdd li.msgEmoji {
+  margin: 5px 0 0 5px;
+}
+.commentBox .msgSend input {
+  padding: 3px 10px;
+}
+.commentBox .msgSend strong {
+  font-size: 14px;
+}
+
+.commentList {
+  background-color: #efefef;
+  margin-bottom: 10px;
+  padding: 0 0 20px 60px;
+  font-size: 13px;
+}
+.commentList > li {
+  padding: 5px;
+  margin-bottom: -1px;
+  border-top: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+}
+.commentList .commentMsg, .commentList .commentFooter {
+  margin-left: 30px;
+}
+.commentList .commentMsg img, .commentList .commentFooter img {
+  width: 32px;
+  float: left;
+  margin-left: -40px;
+  border-radius: 5px;
+}
+.commentList .commentFooter {
+  color: #999;
+}
+.commentList .commentFooter a {
+  float: right;
+  margin-right: 10px;
 }

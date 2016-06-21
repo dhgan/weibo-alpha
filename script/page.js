@@ -64,6 +64,22 @@
             return null;
         }
     }
+
+    (function () {
+        var $navUserHead=$("#navUserHead");
+        var navTimer;
+        $navUserHead.on("mouseover", function () {
+            if(navTimer) clearTimeout(navTimer);
+            $(this).find(".nav_set").show();
+        });
+        $navUserHead.on("mouseout", function () {
+            var _this=$(this);
+            navTimer=setTimeout(function () {
+                _this.find(".nav_set").hide();
+            }, 1000);
+        })
+    })();
+
     $.fn.clipImg=function() {
         if(!this[0]) return;
         var imgW=this[0].naturalWidth;
@@ -298,6 +314,27 @@
     $.fn.commentBoxEvent=function () {
         if(!this[0]) return;
         var _this=this;
+        _this.delegate(".msgDel", "click", function (e) {
+            $(this).addClass("active")
+                .find(".msgDelTips").show();
+        });
+        _this.delegate(".msgDel .msgDelTips a", "click", function (e) {
+            e.stopPropagation();
+            e.returnValue=false;
+            if($(this).hasClass("sure")){
+                $.ajax({
+                    type: "post",
+                    url: "",
+                    success: function () {
+                        window.location.href="index.html";
+                    }
+
+                });
+            }else{
+                $(this).parents(".msgDel").removeClass("active")
+                    .find(".msgDelTips").hide();
+            }
+        })
         _this.delegate(".msgListPhoto", "click", function (e) {
             var $this=$(this);
             function createMsgListPhotoShow() {
@@ -337,7 +374,7 @@
                         $(this).clipImg();
                     });
                 }
-                $window.scrollTop(_this.offset().top-60);
+                $window.scrollTop(bps.offset().top-60);
             }
         });
         _this.delegate(".big_photo_show","click",function () {
@@ -396,6 +433,14 @@
                 }
             });
         }
+        _this.delegate(".msgEmoji", "click", function (e) {;
+            e.stopPropagation();
+            e.returnValue=false;
+            $(this).find(".emojiSet").show();
+        });
+        $(window).on("click", function () {
+            _this.find(".msgEmoji .emojiSet").hide();
+        });
         _this.delegate(".emojiSet", "click", function (e) {
             var target=e.target;
             if(target.tagName.toLowerCase()==="a"){
@@ -476,7 +521,15 @@
     }
     function createMsgList(info){
         var $msgListContentBox=$("<div class='msgListContentBox clearfix' data-msg-type='"+info.type+"'></div>")
-        $("<div class='msgDel'></div>").appendTo($msgListContentBox);
+        $("<div class='msgDel'>" +
+            "<div class='msgDelTips'>" +
+            "<p>确定要删除这条微博吗？</p>" +
+            "<div>" +
+            "<a href='javascript:;' class='sure'>确定</a>" +
+            "<a href='javascript:;' class='cancel'>取消</a>" +
+            "</div>" +
+            "</div>"+
+            "</div>").appendTo($msgListContentBox);
         var $msgListContent=$("<div class='msgListContent'></div>");
         $("<div class='msgListUserInfo'>" +
             "<a href='"+info.userLink+"'>" +
@@ -574,25 +627,6 @@
     m=createMsgList(info);
     m.commentBoxEvent();
     m.appendTo($('.contentBox'));
-    /*var $msgListBody=m.find(".msgListBody").eq(0);
-    if($msgListBody.height()>200) {
-        $msgListBody.hide();
-        var $pull = $("<a href='javascript:;' class='pull'>收起</a>");
-        $msgListBody.append($pull);
-        var $spread = $("<a href='javascript:;'>展开</a>");
-        var $msgListBodyDemo = $("<div class='msgListBodyDemo clearfix'></div>");
-        var $img = $msgListBody.find("img");
-        var $imgDemo = "";
-        if ($img.length > 0) {
-            $imgDemo = "<div><img src='" + $img[0].src + "' /></div>";
-        }
-        $msgListBodyDemo.html($imgDemo + info.msgTitle +
-            $(info.msgInfo).text().substring(0, 100) + "...")
-            .append($spread).insertAfter($msgListBody);
-        $msgListBodyDemo.find("img").on("load",function () {
-            $(this).clipImg();
-        });
-    }*/
     /*create msgBox*/
     function createMsgBox() {
         var $msgBox=$("<div class='msgBox'></div>");
@@ -624,72 +658,6 @@
         return $msgBox;
 
     }
-    function createArticle() {
-        var $pop=$("#gdh-article");
-        if($pop.length){
-            $pop.show();
-        }else{
-            $pop=$("<div id='gdh-article'></div>");
-            var $popMsgBox=$("<div class='popMsgBox'></div>");
-            var $msgHead=$("<div class='msgHead'>" +
-                "<h3>文章</h3>" +
-                "<i></i> </div>");
-            $msgHead.appendTo($popMsgBox);
-            $("<div class='msgTitle'>" +
-                "<input type='text' placeholder='文章标题'>" +
-                "</div>").appendTo($popMsgBox);
-            var $newS=createMsgBox();
-            $newS.msgBoxEvent();
-            var $shadowBox=$("<div class='shadowBox'></div>");
-            $shadowBox.on("click", function () {
-                $pop.hide();
-            });
-            $popMsgBox.delegate(".msgHead i", "click", function () {
-                $pop.hide();
-            });
-            $shadowBox.appendTo($pop);
-            var $editor=$("<div id='editor'></div>");
-            $editor.css({
-                "height": 400,
-                "overflow-y": "scroll"
-            });
-            $editor.appendTo($popMsgBox);
-            var $msgPublish=$("<a href='javascript:;' class='msgPublish'>下一步</a>");
-            var $msgPreview=$("<a href='javascript:;' class='msgPreview'>预览</a>");
-            $("<div class='msgFooter'></div>")
-                .append($msgPublish)
-                .append($msgPreview)
-                .appendTo($popMsgBox);
-            $msgPublish.on("click", function () {
-                console.log($popMsgBox.find(".msgTitle input").val(), editor.$txt.html());
-                filterXSS(editor.$txt.html());
-            });
-            dragDrop($popMsgBox, $msgHead);
-            $popMsgBox.appendTo($pop);
-            $popMsgBox.css({
-                width: 640,
-                "margin-top": 60
-            });
-            $pop.appendTo($("body"));
-            var editor = new wangEditor('editor');
-            editor.config.menuFixed = false;
-            editor.config.fontsizes = {
-                // 格式：'value': 'title'
-                1: '12px',
-                2: '14px',
-                3: '16px',
-                4: '20px',
-                5: '22px',
-                6: '24px',
-                7: '28px'
-            };
-            editor.config.pasteFilter = true;
-            editor.config.pasteText = true;
-            editor.config.uploadImgUrl = 'test.php';
-            editor.config.uploadImgFileName='img';
-            editor.create();
-        }
-    }
     function createNavMsgBox() {
         var $pop=$("#gdh-msg");
         if($pop.length){
@@ -703,6 +671,14 @@
             $msgHead.appendTo($popMsgBox);
             var $newS=createMsgBox();
             $newS.msgBoxEvent();
+            $newS.delegate(".msgEmoji", "click", function (e) {;
+                e.stopPropagation();
+                e.returnValue=false;
+                $(this).find(".emojiSet").show();
+            });
+            $(window).on("click", function () {
+                $newS.find(".msgEmoji .emojiSet").hide();
+            });
             $newS.appendTo($popMsgBox);
             var $shadowBox=$("<div class='shadowBox'></div>");
             $shadowBox.on("click", function () {
@@ -719,9 +695,6 @@
     }
     $("#nav-write").bind("click",function () {
         createNavMsgBox();
-    });
-    $("#article").on("click", function () {
-        createArticle();
     });
     function dragDrop($target,$dragUtil) {
         var disX, disY, flag=false;

@@ -177,7 +177,8 @@ textarea {
   height: 50px;
 }
 .nav_home a {
-  display: inline-block;
+  display: block;
+  margin: 0 auto;
   width: 50px;
   height: 50px;
   background: url('../imgs/icon/home.png?1466005641') no-repeat center;
@@ -220,9 +221,6 @@ textarea {
 .nav_userHead img {
   width: 36px;
   height: 36px;
-}
-.nav_userHead:hover .nav_set {
-  display: block;
 }
 
 .nav_set {
@@ -391,28 +389,22 @@ textarea {
 }
 .popMsgBox .msgFooter a {
   display: inline-block;
-  padding: 5px 15px;
-  margin-right: 15px;
+  padding: 5px 25px;
+  font-size: 16px;
   border-radius: 8px;
 }
 .popMsgBox .msgFooter .msgPublish {
   color: white;
   background: #0084B4;
-  box-shadow: 1px 1px 2px #0084B4;
 }
 .popMsgBox .msgFooter .msgPublish:hover {
   background: #2B7BB9;
 }
-.popMsgBox .msgFooter .msgPreview {
-  color: #33475f;
-  padding: 4px 15px;
-  border: 1px solid #ccc;
-  box-shadow: 1px 1px 2px #ccc;
-}
 
 .main {
   width: 1120px;
-  margin: 70px auto;
+  margin: 0 auto;
+  padding: 70px 0;
 }
 @media only screen and (max-width: 1120px) {
   .main {
@@ -492,10 +484,10 @@ textarea {
   position: relative;
 }
 .msgHot li:hover {
-  background: #ccc;
+  background: #edf3f8;
 }
 .msgHot li:hover a:after {
-  background: #ccc;
+  background: #edf3f8;
 }
 .msgHot li:nth-child(1) {
   border-top: 1px dashed #ccc;
@@ -514,21 +506,16 @@ textarea {
   height: 34px;
   border-radius: 5px;
 }
-.msgHot li a:after {
-  content: "...";
-  position: absolute;
-  top: 24px;
-  right: 0;
-  padding: 0 5px 5px;
-  background-color: #fff;
-  font-weight: bold;
-}
 
 .contentBox {
   float: left;
 }
 
 /*send msg box*/
+.msgBox {
+  border: 1px solid #e1e8ed;
+}
+
 .msgBox, .commentBox {
   width: 600px;
   font-size: 14px;
@@ -596,9 +583,6 @@ textarea {
 }
 .msgBox .msgAdd li.msgEmoji:hover i, .commentBox .msgAdd li.msgEmoji:hover i {
   background: url('../imgs/icon/emoji_hover.png?1465117985') no-repeat center;
-}
-.msgBox .msgAdd li.msgEmoji:hover .emojiSet, .commentBox .msgAdd li.msgEmoji:hover .emojiSet {
-  display: block;
 }
 .msgBox .msgAdd li.msgPhoto i, .commentBox .msgAdd li.msgPhoto i {
   background: url('../imgs/icon/msgPhoto.png?1465139020') no-repeat center;
@@ -893,6 +877,25 @@ textarea {
   display: block;
 }
 
+.msgNav {
+  margin-top: 8px;
+  margin-bottom: -2px;
+  background: #fff;
+  color: #33475f;
+  height: 31px;
+  border: 1px solid #e1e8ed;
+}
+.msgNav li {
+  cursor: pointer;
+  float: left;
+  padding: 5px 10px;
+  margin-right: 1px;
+}
+.msgNav li:hover, .msgNav li.active {
+  background: #367fa9;
+  color: #fff;
+}
+
 /*msg list*/
 .msgListContentBox {
   border: 1px solid #d1dce3;
@@ -913,8 +916,68 @@ textarea {
   cursor: pointer;
   background: url('../imgs/icon/msgDel.png?1465477867') no-repeat center;
 }
-.msgListContentBox .msgDel:hover {
+.msgListContentBox .msgDel:hover, .msgListContentBox .msgDel.active {
+  display: block;
   background: url('../imgs/icon/msgDel_hover.png?1465477904') no-repeat center;
+}
+.msgListContentBox .msgDel .msgDelTips {
+  display: none;
+  position: absolute;
+  background: #fff;
+  width: 189px;
+  left: -90px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  color: #33475f;
+  height: 90px;
+  top: -100px;
+  z-index: 999;
+  box-sizing: border-box;
+  padding: 16px;
+}
+.msgListContentBox .msgDel .msgDelTips:before {
+  content: "";
+  height: 0;
+  border-top: 10px solid #FFFBF5;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  margin-left: -4px;
+  z-index: 10;
+}
+.msgListContentBox .msgDel .msgDelTips:after {
+  content: "";
+  height: 0;
+  border-top: 12px solid #D2D2D2;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  margin-left: -6px;
+  z-index: 9;
+}
+.msgListContentBox .msgDel .msgDelTips p {
+  margin-bottom: 16px;
+  text-align: center;
+}
+.msgListContentBox .msgDel .msgDelTips div {
+  margin: 0 9px;
+}
+.msgListContentBox .msgDel .msgDelTips div a {
+  width: 60px;
+  line-height: 24px;
+  display: inline-block;
+  background: #1b95e0;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+}
+.msgListContentBox .msgDel .msgDelTips div a:nth-child(1) {
+  margin-right: 11px;
 }
 .msgListContentBox:hover .msgDel {
   display: block;

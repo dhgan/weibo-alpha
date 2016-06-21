@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>首页</title>
     <link rel="stylesheet" href="./style/main.css">
     <link rel="stylesheet" type="text/css" href="./style/wangEditor.css">
     <script type="text/javascript" src="script/jquery-3.0.0.min.js"></script>
@@ -20,7 +20,7 @@
         <div class="nav-write" id="nav-write">
             <a href="javascript:;"></a>
         </div>
-        <div class="nav_userHead" id="WB">
+        <div class="nav_userHead" id="navUserHead">
             <a href="javascript:;">
                 <img src="./imgs/head.png">
             </a>
@@ -44,18 +44,16 @@
     <div class="leftCol">
         <div class="userInfo">
             <div class="userHead">
-                <a href="javascript:;">
+                <a href="./home.html">
                     街拍style
                     <img src="./imgs/head.png">
                 </a>
             </div>
-            <div class="addFriend" id="addFriend">
-                <a href="javascript:;"></a>
-            </div>
+            <p style="text-align: center; color: #fff"></p>
         </div>
     </div>
     <div class="contentBox" id="content">
-        <div class="msgBox">
+        <div class="msgBox" id="msgBox">
             <textarea name="msgTxt" class="msgTxt"></textarea>
             <div class="msgTool clearfix">
                 <div class="msgPhotoShow clearfix"></div>
@@ -128,8 +126,21 @@
                 </div>
             </div>
         </div>
+        <ul class="msgNav clearfix" id="msgNav">
+            <li class="msgAll active">全部</li>
+            <li class="msgWB">微博</li>
+            <li class="msgArticle">文章</li>
+        </ul>
         <!--<div class="msgListContentBox clearfix">
-            <div class="msgDel"></div>
+            <div class="msgDel">
+                <div class="msgDelTips">
+                    <p>确定要删除这条微博吗？</p>
+                    <div>
+                        <a href="javascript:;" class="sure">确定</a>
+                        <a href="javascript:;" class="cancel">取消</a>
+                    </div>
+                </div>
+            </div>
             <div class="msgListContent clearfix">
                 <div class="msgListUserInfo">
                     <a href="javascript:;">
@@ -170,375 +181,6 @@
                 <ul class="msgListFooter clearfix">
                     <li class="msgLike"><i>&nbsp;</i><span>10</span></li>
                     <li class="msgComment"><i>&nbsp;</i><span>8</span><b></b></li>
-                </ul>
-            </div>
-            <div class="commentTotal">
-                <div class="commentBox">
-                    <textarea name="msgTxt" class="msgTxt"></textarea>
-                    <div class="msgTool clearfix">
-                        <ul class="msgAdd">
-                            <li class="msgEmoji"><i>&nbsp;</i><span>表情</span>
-                                <ul class="emojiSet">
-                                    <li title="呵呵"><a href="javascript:;"></a></li>
-                                    <li title="哈哈"><a href="javascript:;"></a></li>
-                                    <li title="吐舌"><a href="javascript:;"></a></li>
-                                    <li title="啊"><a href="javascript:;"></a></li>
-                                    <li title="酷"><a href="javascript:;"></a></li>
-                                    <li title="怒"><a href="javascript:;"></a></li>
-                                    <li title="开心"><a href="javascript:;"></a></li>
-                                    <li title="汗"><a href="javascript:;"></a></li>
-                                    <li title="泪"><a href="javascript:;"></a></li>
-                                    <li title="黑线"><a href="javascript:;"></a></li>
-                                    <li title="呵呵"><a href="javascript:;"></a></li>
-                                    <li title="哈哈"><a href="javascript:;"></a></li>
-                                    <li title="吐舌"><a href="javascript:;"></a></li>
-                                    <li title="啊"><a href="javascript:;"></a></li>
-                                    <li title="酷"><a href="javascript:;"></a></li>
-                                    <li title="怒"><a href="javascript:;"></a></li>
-                                    <li title="开心"><a href="javascript:;"></a></li>
-                                    <li title="汗"><a href="javascript:;"></a></li>
-                                    <li title="泪"><a href="javascript:;"></a></li>
-                                    <li title="黑线"><a href="javascript:;"></a></li>
-                                    <li title="呵呵"><a href="javascript:;"></a></li>
-                                    <li title="哈哈"><a href="javascript:;"></a></li>
-                                    <li title="吐舌"><a href="javascript:;"></a></li>
-                                    <li title="啊"><a href="javascript:;"></a></li>
-                                    <li title="酷"><a href="javascript:;"></a></li>
-                                    <li title="怒"><a href="javascript:;"></a></li>
-                                    <li title="开心"><a href="javascript:;"></a></li>
-                                    <li title="汗"><a href="javascript:;"></a></li>
-                                    <li title="泪"><a href="javascript:;"></a></li>
-                                    <li title="黑线"><a href="javascript:;"></a></li>
-                                    <li title="呵呵"><a href="javascript:;"></a></li>
-                                    <li title="哈哈"><a href="javascript:;"></a></li>
-                                    <li title="吐舌"><a href="javascript:;"></a></li>
-                                    <li title="啊"><a href="javascript:;"></a></li>
-                                    <li title="酷"><a href="javascript:;"></a></li>
-                                    <li title="怒"><a href="javascript:;"></a></li>
-                                    <li title="开心"><a href="javascript:;"></a></li>
-                                    <li title="汗"><a href="javascript:;"></a></li>
-                                    <li title="泪"><a href="javascript:;"></a></li>
-                                    <li title="黑线"><a href="javascript:;"></a></li>
-                                    <li title="呵呵"><a href="javascript:;"></a></li>
-                                    <li title="哈哈"><a href="javascript:;"></a></li>
-                                    <li title="吐舌"><a href="javascript:;"></a></li>
-                                    <li title="啊"><a href="javascript:;"></a></li>
-                                    <li title="酷"><a href="javascript:;"></a></li>
-                                    <li title="怒"><a href="javascript:;"></a></li>
-                                    <li title="开心"><a href="javascript:;"></a></li>
-                                    <li title="汗"><a href="javascript:;"></a></li>
-                                    <li title="泪"><a href="javascript:;"></a></li>
-                                    <li title="黑线"><a href="javascript:;"></a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="msgSend">
-                            <strong>140</strong>
-                            <input type="submit" value="评论" class="disabled" disabled="disabled">
-                        </div>
-                    </div>
-                </div>
-                <ul class="commentList">
-                    <li>
-                        <div class="commentMsg">
-                            <a href="javascript:;">优秀小说精选</a>：
-                            为什么大家都讨厌我呢？星期一小姐每这样想一次就会变得自卑一分。终于有天她忍不住对她的恋人星期天先生说，你还是离我远一点吧，和我走这么近会连累你的，现在好多人甚至喜欢星期五都超过喜欢你了。可我不能离开你啊！星期天先生说，哪怕只离开你超过一天，我就不再是我了。
-                        </div>
-                        <div class="commentFooter">
-                            <span>12:49</span>
-                            <a href="javascript:;">回复</a>
-                        </div>
-                        <div class="commentBox">
-                            <textarea name="msgTxt" class="msgTxt"></textarea>
-                            <div class="msgTool clearfix">
-                                <ul class="msgAdd">
-                                    <li class="msgEmoji"><i>&nbsp;</i><span>表情</span>
-                                        <ul class="emojiSet">
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <div class="msgSend">
-                                    <strong>140</strong>
-                                    <input type="submit" value="评论" class="disabled" disabled="disabled">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="commentMsg">
-                            <a href="javascript:;">优秀小说精选</a>：
-                            为什么大家都讨厌我呢？星期一小姐每这样想一次就会变得自卑一分。终于有天她忍不住对她的恋人星期天先生说，你还是离我远一点吧，和我走这么近会连累你的，现在好多人甚至喜欢星期五都超过喜欢你了。可我不能离开你啊！星期天先生说，哪怕只离开你超过一天，我就不再是我了。
-                        </div>
-                        <div class="commentFooter">
-                            <span>12:49</span>
-                            <a href="javascript:;">回复</a>
-                        </div>
-                        <div class="commentBox">
-                            <textarea name="msgTxt" class="msgTxt"></textarea>
-                            <div class="msgTool clearfix">
-                                <ul class="msgAdd">
-                                    <li class="msgEmoji"><i>&nbsp;</i><span>表情</span>
-                                        <ul class="emojiSet">
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <div class="msgSend">
-                                    <strong>140</strong>
-                                    <input type="submit" value="评论" class="disabled" disabled="disabled">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="commentMsg">
-                            <a href="javascript:;">优秀小说精选</a>：
-                            为什么大家都讨厌我呢？星期一小姐每这样想一次就会变得自卑一分。终于有天她忍不住对她的恋人星期天先生说，你还是离我远一点吧，和我走这么近会连累你的，现在好多人甚至喜欢星期五都超过喜欢你了。可我不能离开你啊！星期天先生说，哪怕只离开你超过一天，我就不再是我了。
-                        </div>
-                        <div class="commentFooter">
-                            <span>12:49</span>
-                            <a href="javascript:;">回复</a>
-                        </div>
-                        <div class="commentBox">
-                            <textarea name="msgTxt" class="msgTxt"></textarea>
-                            <div class="msgTool clearfix">
-                                <ul class="msgAdd">
-                                    <li class="msgEmoji"><i>&nbsp;</i><span>表情</span>
-                                        <ul class="emojiSet">
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <div class="msgSend">
-                                    <strong>140</strong>
-                                    <input type="submit" value="评论" class="disabled" disabled="disabled">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="commentMsg">
-                            <a href="javascript:;">优秀小说精选</a>：
-                            为什么大家都讨厌我呢？星期一小姐每这样想一次就会变得自卑一分。终于有天她忍不住对她的恋人星期天先生说，你还是离我远一点吧，和我走这么近会连累你的，现在好多人甚至喜欢星期五都超过喜欢你了。可我不能离开你啊！星期天先生说，哪怕只离开你超过一天，我就不再是我了。
-                        </div>
-                        <div class="commentFooter">
-                            <span>12:49</span>
-                            <a href="javascript:;">回复</a>
-                        </div>
-                        <div class="commentBox">
-                            <textarea name="msgTxt" class="msgTxt"></textarea>
-                            <div class="msgTool clearfix">
-                                <ul class="msgAdd">
-                                    <li class="msgEmoji"><i>&nbsp;</i><span>表情</span>
-                                        <ul class="emojiSet">
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                            <li title="呵呵"><a href="javascript:;"></a></li>
-                                            <li title="哈哈"><a href="javascript:;"></a></li>
-                                            <li title="吐舌"><a href="javascript:;"></a></li>
-                                            <li title="啊"><a href="javascript:;"></a></li>
-                                            <li title="酷"><a href="javascript:;"></a></li>
-                                            <li title="怒"><a href="javascript:;"></a></li>
-                                            <li title="开心"><a href="javascript:;"></a></li>
-                                            <li title="汗"><a href="javascript:;"></a></li>
-                                            <li title="泪"><a href="javascript:;"></a></li>
-                                            <li title="黑线"><a href="javascript:;"></a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <div class="msgSend">
-                                    <strong>140</strong>
-                                    <input type="submit" value="评论" class="disabled" disabled="disabled">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </div>-->
