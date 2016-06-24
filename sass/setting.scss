@@ -23,6 +23,9 @@ $info_bg: #80A8CC;
 
 $font-family: 'Arial','Microsoft YaHei';
 
+html{
+  height: 100%;
+}
 body {
   background: image-url("bg.png");
   font: 14px/1.5 $font-family;
@@ -100,8 +103,8 @@ textarea{
   a{
     background: image-url("logo1.png") no-repeat left;
     display: inline-block;
-    vertical-align: middle;
     height: 40px;
+    margin-top: 5px;
     width: 200px;
   }
 }
@@ -109,10 +112,12 @@ textarea{
 .nav-write{
   float: right;
   font-size: 0;
+  height: 50px;
   a{
     display: inline-block;
     width: 30px;
     height: 30px;
+    margin: 10px 0;
     vertical-align: middle;
     background: image-url('icon/write.png') no-repeat center;
     &:hover{
@@ -155,7 +160,6 @@ textarea{
 .nav_userHead{
   float: right;
   height: 50px;
-  vertical-align: middle;
   font-size: 0;
   position: relative;
   margin-right: 15px;
@@ -163,7 +167,7 @@ textarea{
     display: inline-block;
     width: 36px;
     height: 36px;
-    vertical-align: middle;
+    margin: 7px 0;
     border-radius: 5px;
     overflow: hidden;
   }
@@ -231,9 +235,7 @@ textarea{
 
 
 
-
-
-#gdh-msg, #gdh-article{
+#gdh-msg, #gdh-head{
   position: fixed;
   left: 0;
   top: 0;
@@ -241,12 +243,9 @@ textarea{
   width: 100%;
   z-index: 1000;
 }
-#gdh-article{
-  ul{
-    list-style:disc;
-  }
-  ol{
-    list-style: decimal;
+#gdh-head{
+  .popMsgBox{
+    margin-top: 50px;
   }
 }
 .shadowBox{
@@ -312,6 +311,13 @@ textarea{
     @include border-top-radius(0);
     @include border-bottom-radius(10px);
   }
+}
+
+.main{
+  width: 860px;
+  padding: 70px 0;
+  /*margin-left: calc(40% - 301px);*/
+  margin: 0 auto;
 }
 
 /*send msg box*/
@@ -553,4 +559,48 @@ textarea{
   text-align: center;
   color: $nav_a;
 }
+@keyframes load {
+  0%{
+    transform: rotate(0deg);
+  }
+  12.5%{
+    transform: rotate(45deg);
+  }
+  25%{
+    transform: rotate(90deg);
+  }
+  37.5%{
+    transform: rotate(135deg);
+  }
+  50%{
+    transform: rotate(180deg);
+  }
+  62.5%{
+    transform: rotate(225deg);
+  }
+  75%{
+    transform: rotate(270deg);
+  }
+  87.5%{
+    transform: rotate(315deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+.imgLoad{
+  position: fixed;
+  background: rgba(#fff, 0.8);
+  height: 20px;
+  width: 20px;
+  border-radius: 2px;
+  z-index: 9999;
+  img{
+    animation: load 1s linear infinite;
+  }
+}
+
 @import "tips";
+
+
+@import "clipImg";

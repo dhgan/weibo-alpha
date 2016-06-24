@@ -550,4 +550,37 @@
         m.commentBoxEvent();
         m.appendTo($('.contentHot').eq(0));
     }
+    function replaceEmoji(msg) {
+        return msg.replace(/\[([^\[\]]+)\]/g, function ($0,$1) {
+            var src="";
+            emoji.forEach(function (value) {
+                if(value.title==$1){
+                    src="<img src='"+value.url+"' class='emoji'/>";
+                    return;
+                }
+            });
+            console.log(src);
+            if(src) return src;
+            return $1;
+        });
+    }
+    function alertMsg(tips, $relative, type) {
+        var src="./imgs/icon/success.png";
+        if(type=="error") src="./imgs/icon/error.png";
+        var $tips= $("<div class='tips'></div>");
+        $tips.html("<img src='"+src+"'>"+tips)
+            .appendTo($relative.parent())
+            .ready(function () {
+                $tips.css({
+                    "top": $relative.offset().top-$(window).scrollTop()+$relative.outerHeight()/2,
+                    "left": $relative.offset().left-$(window).scrollLeft()+$relative.outerWidth()/2,
+                    "margin-left": -$tips.outerWidth()/2,
+                    "margin-top": -$tips.outerHeight()/2,
+                    "visibility": "visible"
+                });
+            });
+        setTimeout(function () {
+            $tips.remove();
+        },1500);
+    }
 })();

@@ -63,11 +63,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   clear: both;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   background: url('../imgs/bg.png?1465733283');
   font: 14px/1.5 "Arial", "Microsoft YaHei";
   min-width: 860px;
-  min-height: 120%;
+  min-height: 100%;
   overflow-y: scroll;
   position: relative;
 }
@@ -150,19 +154,21 @@ textarea {
 .logo a {
   background: url('../imgs/logo1.png?1464496542') no-repeat left;
   display: inline-block;
-  vertical-align: middle;
   height: 40px;
+  margin-top: 5px;
   width: 200px;
 }
 
 .nav-write {
   float: right;
   font-size: 0;
+  height: 50px;
 }
 .nav-write a {
   display: inline-block;
   width: 30px;
   height: 30px;
+  margin: 10px 0;
   vertical-align: middle;
   background: url('../imgs/icon/write.png?1466002069') no-repeat center;
 }
@@ -205,7 +211,6 @@ textarea {
 .nav_userHead {
   float: right;
   height: 50px;
-  vertical-align: middle;
   font-size: 0;
   position: relative;
   margin-right: 15px;
@@ -214,7 +219,7 @@ textarea {
   display: inline-block;
   width: 36px;
   height: 36px;
-  vertical-align: middle;
+  margin: 7px 0;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -389,7 +394,7 @@ textarea {
 }
 .leftCol .userInfo {
   background: #6e9cc5;
-  padding: 100px 10px 10px;
+  padding: 120px 10px 10px;
   border-radius: 6px;
 }
 .leftCol .userInfo .userHead {
@@ -404,27 +409,37 @@ textarea {
 }
 .leftCol .userInfo .userHead img {
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   position: absolute;
   bottom: 40px;
   left: 50%;
-  margin-left: -40px;
+  margin-left: -50px;
 }
-.leftCol .userInfo .addFriend {
-  text-align: center;
-}
-.leftCol .userInfo .addFriend a {
+.leftCol .userInfo .addFriend input {
+  cursor: pointer;
+  font-family: "Arial", "Microsoft YaHei";
+  border: none;
+  outline: none;
+  display: none;
+  font-size: 15px;
   color: white;
+  text-align: center;
   background: #5280a9;
   width: 121px;
   height: 41px;
   line-height: 41px;
   border-radius: 20px;
-  display: inline-block;
+  margin: 0 auto;
 }
-.leftCol .userInfo .addFriend a:hover {
-  background: #456b8e;
+.leftCol .userInfo .addFriend input:hover {
+  background: #2B7BB9;
+}
+.leftCol .userInfo .addFriend input.show {
+  display: block;
+}
+.leftCol .userInfo .addFriend input.remove {
+  background: #E81C4F;
 }
 
 .contentBox {
@@ -1245,6 +1260,18 @@ textarea {
   animation: load 1s linear infinite;
 }
 
+.imgLoad {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.8);
+  height: 20px;
+  width: 20px;
+  border-radius: 2px;
+  z-index: 9999;
+}
+.imgLoad img {
+  animation: load 1s linear infinite;
+}
+
 .tips {
   background: rgba(255, 255, 255, 0.6);
   color: #33475f;
@@ -1254,6 +1281,7 @@ textarea {
   border-radius: 5px;
   vertical-align: middle;
   visibility: hidden;
+  z-index: 9999;
 }
 .tips img {
   vertical-align: middle;

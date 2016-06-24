@@ -135,7 +135,8 @@
                 btn.removeAttr("disabled")
                     .removeClass("disabled");
                 if(left===defaults.maxLength){
-                    btn.addClass("disabled");
+                    btn.attr("disabled","disabled")
+                        .addClass("disabled");
                 }
             }
             msgTips.text(left).attr("data-msg-length", total);
@@ -169,7 +170,12 @@
             var $this=$(this);
             var file=this.files[0];
             var url=createObjectURL(file);
-            if(file.size/1024>=10240){
+            $this.val("");
+            var type=file.type.toLowerCase();
+            if (!(type==="image/jpg"||type==="image/gif"||type==="image/jpeg"||type==="image/png")){
+                alertMsg("文件格式错误，图片只能为JPG、GIF、JPEG、PNG格式", _this, "error");
+                return;
+            }else  if(file.size/1024>=10240){
                 alertMsg("文件大小不能大于10m");
                 return;
             }else if(updatePhoto.length==9){
@@ -286,7 +292,7 @@
         $msgEmoji.appendTo($msgAdd);
         $("<li class='msgPhoto'>" +
             "<i>&nbsp;</i><span>照片</span>" +
-            "<input type='file' name='msgPhoto' class='msgPhotoAdd' accept='image/*'> " +
+            "<input type='file' name='msgPhoto' class='msgPhotoAdd' accept='image/gif,image/jpeg,image/jpg,image/png'> " +
             "</li>").appendTo($msgAdd);
         $msgAdd.appendTo($msgTool);
         var $msgSend=$("<div class='msgSend'></div>");
@@ -372,18 +378,20 @@
         $(document).on("mouseup", mouseup);
     }
 
-    function alertMsg(tips, $parent, type) {
+    function alertMsg(tips, $relative, type) {
         var src="./imgs/icon/success.png";
         if(type=="error") src="./imgs/icon/error.png";
-        var $tips= $("<div class='tips'></div>");
+        var $tips=$relative.siblings(".tips");
+        if($tips.length>0) $tips.remove();
+        $tips= $("<div class='tips'></div>");
         $tips.html("<img src='"+src+"'>"+tips)
-            .appendTo($parent)
+            .appendTo($relative.parent())
             .ready(function () {
                 $tips.css({
-                    "top": $parent.offset().top+$parent.height()/2,
-                    "left": $parent.offset().left+$parent.width()/2,
-                    "margin-left": -$tips.width()/2,
-                    "margin-top": -$tips.height()/2,
+                    "top": $relative.offset().top-$(window).scrollTop()+$relative.outerHeight()/2,
+                    "left": $relative.offset().left-$(window).scrollLeft()+$relative.outerWidth()/2,
+                    "margin-left": -$tips.outerWidth()/2,
+                    "margin-top": -$tips.outerHeight()/2,
                     "visibility": "visible"
                 });
             });
@@ -391,4 +399,171 @@
             $tips.remove();
         },1500);
     }
+    function loadImg($relative) {
+        var src="./imgs/icon/load.png";
+        var $tips= $("<div class='imgLoad'></div>");
+        $tips.html("<img src='"+src+"'>")
+            .appendTo($relative.parent())
+            .ready(function () {
+                $tips.css({
+                    "top": $relative.offset().top-$(window).scrollTop()+$relative.outerHeight()/2,
+                    "left": $relative.offset().left-$(window).scrollLeft()+$relative.outerWidth()/2,
+                    "margin-left": -$tips.outerWidth()/2,
+                    "margin-top": -$tips.outerHeight()/2,
+                    "visibility": "visible"
+                });
+            });
+        return $tips;
+    }
+    $.fn.clipHeadEvent=function () {
+        var $clipInput=this.find(".clipInput input"),
+            $img=this.find(".clipImg img"),
+            $imgDemo=this.find(".imgDemo img"),
+            canvas,
+            size,
+            $jcrop,
+            context;
+        function imgDemo() {
+            var clipSize=this.tellSelect();
+            var h=clipSize.h,
+                w=clipSize.w,
+                x=clipSize.x,
+                y=clipSize.y;
+            if(canvas.getContext){
+                var scale=$img[0].naturalWidth/size[0];
+                context.drawImage($img[0],x*scale,y*scale,w*scale,h*scale,0,0,200,200);
+                $imgDemo[0].src=canvas.toDataURL("image/png", 0.91);
+            }
+        }
+        $clipInput.on("change", function () {
+            var img=this.files[0];
+            var type=img.type.toLowerCase();
+            if (!(type==="image/jpg"||type==="image/gif"||type==="image/jpeg"||type==="image/png")){
+                alertMsg("文件格式错误，图片只能为JPG、GIF、JPEG、PNG格式", $(this).parent().parent(), "error");
+                return;
+            }else if(img.size/1024>=5120){
+                alertMsg("图片大小不能大于5M", $(this).parent().parent(), "error");
+                return ;
+            }
+            $img[0].src=createObjectURL(img);
+            $img.on("load", function () {
+                var nW=this.naturalWidth,
+                    nH=this.naturalHeight;
+                if(nW>nH){
+                    $(this).css({
+                        "width": 360,
+                        "height": "auto",
+                        'margin-top': (360-nH)/2
+                    });
+                } else{
+                    $(this).css({
+                        "width": "auto",
+                        "height": 360,
+                        'margin-left': (360-nW)/2
+                    });
+                }
+                if($jcrop) $jcrop.destroy();
+                $(this).Jcrop({
+                    aspectRatio: 1 / 1,
+                    minSize: [50,50],
+                    onSelect: imgDemo,
+                    allowSelect: false
+                }, function () {
+                    $jcrop=this;
+                    this.ui.holder.css({
+                        "margin": (360-this.ui.holder.height())/2+"px auto"
+                    });
+                    canvas=$("<canvas width='200' height='200'></canvas>")[0];
+                    context=canvas.getContext("2d");
+                    size=this.getWidgetSize();
+                    var s=size[0]>size[1]?size[1]:size[0];
+                    this.setSelect([(size[0]-s/2)/2,(size[1]-s/2)/2,s/2+(size[0]-s/2)/2,s/2+(size[1]-s/2)/2]);
+                });
+            })
+        })
+    }
+    function createClip() {
+        var $clipHead=$("<div class='clipHead clearfix'></div>");
+        $clipHead.html('<div class="clipInput">' +
+                '<a href="javascript:;">选择图片</a>' +
+                '<input type="file" name="head" accept="image/gif,image/jpeg,image/jpg,image/png">' +
+                '<span>预览</span>' +
+            '</div>' +
+            '<div class="clipImg">' +
+                '<img src="">' +
+            '</div>' +
+            '<div class="imgDemo">' +
+                '<img src="./imgs/head.png">' +
+            '</div>');
+        return $clipHead;
+    }
+    function createClipHead() {
+        var $pop=$("#gdh-head");
+        if($pop.length){
+            $pop.show();
+        } else{
+            $pop=$("<div id='gdh-head'></div>");
+            var $popMsgBox=$("<div class='popMsgBox'></div>");
+            var $msgHead=$("<div class='msgHead'>" +
+                "<h3>头像设置</h3>" +
+                "<i></i> </div>");
+            $msgHead.appendTo($popMsgBox);
+            createClip()
+                .appendTo($popMsgBox)
+                .clipHeadEvent();
+            var $msgPublish=$("<a href='javascript:;' class='msgPublish'>确定</a>");
+            $("<div class='msgFooter'></div>")
+                .append($msgPublish)
+                .appendTo($popMsgBox);
+            var flag=0;
+            $msgPublish.on("click", function () {
+                if(flag) return;
+                if($popMsgBox.find(".clipImg img").eq(0).attr("src")===""){
+                    alertMsg("请选择图片", $popMsgBox, "error");
+                    return;
+                }
+                flag=1;
+                var $tips=loadImg($popMsgBox.find('.clipImg').eq(0));
+                var formData=new FormData();
+                var data=$popMsgBox.find(".imgDemo img").eq(0).attr("src");
+                data=data.split(',')[1];
+                data=window.atob(data);
+                var ia = new Uint8Array(data.length);
+                for (var i = 0; i < data.length; i++) {
+                    ia[i] = data.charCodeAt(i);
+                };
+                var blob=new Blob([ia], {type:"image/png"});
+                console.log(blob);
+                formData.append("img", blob);
+                $.ajax({
+                    type: "post",
+                    url: "test.php",
+                    data: formData,
+                    processData: false,
+                    contentType: false
+                }).done(function (e) {
+                    $tips.remove();
+                    flag=0;
+                    console.log(e);
+                    alertMsg("修改成功", $popMsgBox, "success");
+                }).fail(function () {
+                    $tips.remove();
+                    flag=0;
+                    alertMsg("修改失败", $popMsgBox, "error");
+                });
+            });
+            dragDrop($popMsgBox, $msgHead);
+            var $shadowBox=$("<div class='shadowBox'></div>");
+            $shadowBox.on("click", function () {
+                $pop.hide();
+            });
+            $popMsgBox.delegate(".msgHead i", "click", function () {
+                $pop.hide();
+            });
+            $shadowBox.appendTo($pop);
+            $popMsgBox.appendTo($pop);
+            $pop.appendTo($("body"));
+        }
+    }
+    // createClipHead();
 })();

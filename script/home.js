@@ -135,7 +135,8 @@
                 btn.removeAttr("disabled")
                     .removeClass("disabled");
                 if(left===defaults.maxLength){
-                    btn.addClass("disabled");
+                    btn.attr("disabled","disabled")
+                        .addClass("disabled");
                 }
             }
             msgTips.text(left).attr("data-msg-length", total);
@@ -169,7 +170,12 @@
             var $this=$(this);
             var file=this.files[0];
             var url=createObjectURL(file);
-            if(file.size/1024>=10240){
+            $this.val("");
+            var type=file.type.toLowerCase();
+            if (!(type==="image/jpg"||type==="image/gif"||type==="image/jpeg"||type==="image/png")){
+                alertMsg("文件格式错误，图片只能为JPG、GIF、JPEG、PNG格式", _this, "error");
+                return;
+            }else  if(file.size/1024>=10240){
                 alert("文件大小不能大于10m");
                 return;
             }else if(updatePhoto.length==9){
@@ -640,7 +646,7 @@
         $msgEmoji.appendTo($msgAdd);
         $("<li class='msgPhoto'>" +
             "<i>&nbsp;</i><span>照片</span>" +
-            "<input type='file' name='msgPhoto' class='msgPhotoAdd' accept='image/*'> " +
+            "<input type='file' name='msgPhoto' class='msgPhotoAdd' accept='image/gif,image/jpeg,image/jpg,image/png'> " +
             "</li>").appendTo($msgAdd);
         $msgAdd.appendTo($msgTool);
         var $msgSend=$("<div class='msgSend'></div>");
@@ -1008,25 +1014,6 @@
         if($(window).scrollTop()+$(window).height()==$(document.body).outerHeight(true))
             updateMsg();
     });
-    function alertMsg(tips, $parent, type) {
-        var src="./imgs/icon/success.png";
-        if(type=="error") src="./imgs/icon/error.png";
-        var $tips= $("<div class='tips'></div>");
-        $tips.html("<img src='"+src+"'>"+tips)
-            .appendTo($parent)
-            .ready(function () {
-                $tips.css({
-                    "top": $parent.offset().top+$parent.height()/2,
-                    "left": $parent.offset().left+$parent.width()/2,
-                    "margin-left": -$tips.width()/2,
-                    "margin-top": -$tips.height()/2,
-                    "visibility": "visible"
-                });
-            });
-        setTimeout(function () {
-            $tips.remove();
-        },1500);
-    }
     function createLoad() {
         return $("<div class='msgLoad'>" +
             "<img src='./imgs/icon/load.png'>" +
@@ -1038,4 +1025,94 @@
             "所符合的内容为空" +
             "</div>")
     }
+    function replaceEmoji(msg) {
+        return msg.replace(/\[([^\[\]]+)\]/g, function ($0,$1) {
+            var src="";
+            emoji.forEach(function (value) {
+                if(value.title==$1){
+                    src="<img src='"+value.url+"' class='emoji'/>";
+                    return;
+                }
+            });
+            console.log(src);
+            if(src) return src;
+            return $1;
+        });
+    }
+    function loadImg($relative) {
+        var src="./imgs/icon/load.png";
+        var $tips= $("<div class='imgLoad'></div>");
+        $tips.html("<img src='"+src+"'>")
+            .appendTo($relative.parent())
+            .ready(function () {
+                $tips.css({
+                    "top": $relative.offset().top-$(window).scrollTop()+$relative.outerHeight()/2,
+                    "left": $relative.offset().left-$(window).scrollLeft()+$relative.outerWidth()/2,
+                    "margin-left": -$tips.outerWidth()/2,
+                    "margin-top": -$tips.outerHeight()/2,
+                    "visibility": "visible"
+                });
+            });
+        return $tips;
+    }
+    var $addFriend=$("#addFriend");
+    $addFriend.on("mouseover", "input",function () {
+        if($(this).hasClass("toggle")&&$(this).hasClass("active")){
+            $(this).removeClass("show")
+                .siblings(".toggle").addClass("show");
+        }
+    });
+    $addFriend.on("mouseout", "input",function () {
+        if($(this).hasClass("toggle")){
+            $(this).removeClass("show")
+                .siblings(".active").addClass("show");
+        }
+    });
+    $addFriend.on("click", "input", function () {
+       if($(this).hasClass("add")){
+           $.ajax({});
+           //$(this).attr("disabled", "disabled");
+           var $has=$(this).removeClass("active")
+               .removeClass("show")
+               .siblings(".has").addClass("show");
+           $has.on("mouseout", function (e) {
+               e.stopPropagation();
+               e.returnValue=false;
+               $has.addClass("active");
+           });
+           //alertMsg("添加成功", $addFriend.parent(), "success");
+           alertMsg("添加失败", $addFriend.parent(), "error");
+       }else if($(this).hasClass("remove")){
+           $.ajax({});
+           //$(this).attr("disabled", "disabled");
+           $(this).removeClass("show")
+               .siblings(".has")
+               .removeClass("active")
+               .siblings(".add").addClass("active show");
+           alertMsg("删除成功", $addFriend.parent(), "success");
+           alertMsg("删除失败",$addFriend.parent(), "error");
+       }
+    });
+    $("#addFriend input").eq(0).addClass("active show");
 })();
+function alertMsg(tips, $relative, type) {
+    var src="./imgs/icon/success.png";
+    if(type=="error") src="./imgs/icon/error.png";
+    var $tips=$relative.siblings(".tips");
+    if($tips.length>0) $tips.remove();
+    $tips= $("<div class='tips'></div>");
+    $tips.html("<img src='"+src+"'>"+tips)
+        .appendTo($relative.parent())
+        .ready(function () {
+            $tips.css({
+                "top": $relative.offset().top-$(window).scrollTop()+$relative.outerHeight()/2,
+                "left": $relative.offset().left-$(window).scrollLeft()+$relative.outerWidth()/2,
+                "margin-left": -$tips.outerWidth()/2,
+                "margin-top": -$tips.outerHeight()/2,
+                "visibility": "visible"
+            });
+        });
+    setTimeout(function () {
+        $tips.remove();
+    },1500);
+}

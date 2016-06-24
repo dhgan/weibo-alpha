@@ -4,14 +4,13 @@
 var userInfo={};
 $.ajax({
     type: "post",
-    url: "./test.php",
-    data: "type=verify",
+    url: "getLoginUserMessage",
     dataType: "json",
     success: function (data) {
         userInfo=data;
+        console.log(data);
     },
     error: function (msg) {
-        alert(msg);
+        document.write(msg);
     }
-    
 });

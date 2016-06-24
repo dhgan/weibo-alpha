@@ -63,6 +63,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   clear: both;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   background: url('../imgs/bg.png?1465733283');
   font: 14px/1.5 "Arial", "Microsoft YaHei";
@@ -155,19 +159,21 @@ textarea {
 .logo a {
   background: url('../imgs/logo1.png?1464496542') no-repeat left;
   display: inline-block;
-  vertical-align: middle;
   height: 40px;
+  margin-top: 5px;
   width: 200px;
 }
 
 .nav-write {
   float: right;
   font-size: 0;
+  height: 50px;
 }
 .nav-write a {
   display: inline-block;
   width: 30px;
   height: 30px;
+  margin: 10px 0;
   vertical-align: middle;
   background: url('../imgs/icon/write.png?1466002069') no-repeat center;
 }
@@ -210,7 +216,6 @@ textarea {
 .nav_userHead {
   float: right;
   height: 50px;
-  vertical-align: middle;
   font-size: 0;
   position: relative;
   margin-right: 15px;
@@ -219,7 +224,7 @@ textarea {
   display: inline-block;
   width: 36px;
   height: 36px;
-  vertical-align: middle;
+  margin: 7px 0;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -283,7 +288,7 @@ textarea {
   z-index: 9;
 }
 
-#gdh-msg, #gdh-article {
+#gdh-msg, #gdh-head {
   position: fixed;
   left: 0;
   top: 0;
@@ -292,11 +297,8 @@ textarea {
   z-index: 1000;
 }
 
-#gdh-article ul {
-  list-style: disc;
-}
-#gdh-article ol {
-  list-style: decimal;
+#gdh-head .popMsgBox {
+  margin-top: 50px;
 }
 
 .shadowBox {
@@ -378,6 +380,13 @@ textarea {
   -moz-border-radius-bottomright: 10px;
   -webkit-border-bottom-right-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+.main {
+  width: 860px;
+  padding: 70px 0;
+  /*margin-left: calc(40% - 301px);*/
+  margin: 0 auto;
 }
 
 /*send msg box*/
@@ -754,6 +763,47 @@ textarea {
   color: #33475f;
 }
 
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  12.5% {
+    transform: rotate(45deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  37.5% {
+    transform: rotate(135deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  62.5% {
+    transform: rotate(225deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  87.5% {
+    transform: rotate(315deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.imgLoad {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.8);
+  height: 20px;
+  width: 20px;
+  border-radius: 2px;
+  z-index: 9999;
+}
+.imgLoad img {
+  animation: load 1s linear infinite;
+}
+
 .tips {
   background: rgba(255, 255, 255, 0.6);
   color: #33475f;
@@ -763,9 +813,99 @@ textarea {
   border-radius: 5px;
   vertical-align: middle;
   visibility: hidden;
+  z-index: 9999;
 }
 .tips img {
   vertical-align: middle;
   margin-top: -10px;
   margin-right: 5px;
+}
+
+.clipHead {
+  background: #fff;
+  padding: 20px;
+  position: relative;
+}
+
+.clipInput {
+  height: 30px;
+  position: relative;
+  line-height: 28px;
+}
+.clipInput a {
+  height: 28px;
+  width: 76px;
+  text-align: center;
+  background: #2B7BB9;
+  color: #fff;
+  border-radius: 3px;
+  display: inline-block;
+}
+.clipInput input {
+  font-size: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 28px;
+  width: 76px;
+  opacity: 0;
+  cursor: pointer;
+}
+.clipInput span {
+  width: 180px;
+  text-align: center;
+  float: right;
+  color: #33475f;
+}
+
+.clipImg {
+  vertical-align: middle;
+  height: 360px;
+  width: 360px;
+  float: left;
+  background: #f2f2f5;
+  overflow: hidden;
+}
+
+.imgDemo {
+  float: right;
+  width: 180px;
+  height: 180px;
+  background: #f2f2f5;
+  line-height: 180px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0;
+}
+.imgDemo img {
+  width: 150px;
+  height: 150px;
+  vertical-align: middle;
+}
+
+.msgFooter {
+  position: relative;
+  background: #FFFBF5;
+  line-height: 30px;
+  padding: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-align: center;
+}
+.msgFooter a {
+  display: inline-block;
+  padding: 5px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+}
+.msgFooter .msgPublish {
+  color: white;
+  background: #0084B4;
+}
+.msgFooter .msgPublish:hover {
+  background: #2B7BB9;
 }
